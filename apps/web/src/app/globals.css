@@ -5,7 +5,9 @@
 :root { color-scheme: light; }
 .dark { color-scheme: dark; }
 html { scroll-behavior: smooth; }
-body { min-width: 320px; background: #f8fafc; color: #0f172a; }
-.dark body { background: #020617; color: #e2e8f0; }
+body { position: relative; isolation: isolate; min-width: 320px; background: #f2fbf5; color: #123a2a; }
+body::before { position: fixed; inset: 0; z-index: -1; pointer-events: none; content: ""; opacity: .65; background: radial-gradient(circle at 12% 12%, rgba(139, 211, 167, .45), transparent 20rem), radial-gradient(circle at 88% 22%, rgba(183, 234, 202, .55), transparent 25rem), radial-gradient(circle at 55% 92%, rgba(113, 197, 147, .22), transparent 22rem), radial-gradient(circle at 12px 12px, rgba(17, 106, 70, .06) 0 7px, transparent 8px); background-size: auto, auto, auto, 34px 34px; }
+.dark body { background: #062a1f; color: #e4f3e9; }
+.dark body::before { opacity: .55; background: radial-gradient(circle at 15% 14%, rgba(55, 141, 96, .42), transparent 22rem), radial-gradient(circle at 88% 35%, rgba(33, 119, 79, .38), transparent 26rem), radial-gradient(circle at 50% 90%, rgba(126, 208, 158, .16), transparent 24rem), radial-gradient(circle at 12px 12px, rgba(179, 229, 195, .04) 0 7px, transparent 8px); background-size: auto, auto, auto, 34px 34px; }
 button, a, input, textarea, select { -webkit-tap-highlight-color: transparent; }
-::selection { background: #bfdbfe; color: #172554; }
+::selection { background: #a3dbb9; color: #052a1f; }
