@@ -1,0 +1,2 @@
+import { expect, test } from "@playwright/test";
+test("home and tool page render", async ({ page }) => { await page.goto("/vi"); await expect(page.getByRole("heading", { name: /Công cụ hữu ích/i })).toBeVisible(); await page.goto("/vi/tools/json-formatter"); await expect(page.getByRole("heading", { name: "JSON Formatter" })).toBeVisible(); await expect(page.getByText(/Xử lý trên thiết bị/i)).toBeVisible(); });

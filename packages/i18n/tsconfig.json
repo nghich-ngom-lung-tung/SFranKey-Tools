@@ -1,0 +1,1 @@
+{ "extends": "../../tsconfig.base.json", "compilerOptions": { "outDir": "dist", "baseUrl": ".", "paths": { "@sfrankey/shared": ["../shared/src/index.ts"] } }, "include": ["src"] }

@@ -1,0 +1,3 @@
+import type { Locale } from "@sfrankey/shared";
+import { getDictionary } from "@sfrankey/i18n";
+export default async function AboutPage({ params }: { params: Promise<{ locale: Locale }> }) { const { locale } = await params; const t = getDictionary(locale); return <article className="prose prose-slate mx-auto max-w-3xl px-4 py-12 dark:prose-invert sm:px-6"><h1>{t.nav.about}</h1><p>{t.home.description}</p><h2>SFranKey</h2><p>{locale === "vi" ? "SFranKey là bộ công cụ bảo mật và lập trình ưu tiên quyền riêng tư. Công cụ phổ biến không yêu cầu tài khoản và được thiết kế để xử lý dữ liệu ngay trong trình duyệt." : "SFranKey is a privacy-first security and developer toolbox. Common tools require no account and are designed to process data in your browser."}</p></article>; }
