@@ -6,12 +6,13 @@ import { Button, Card, CopyButton, Input, Label, Select, Textarea } from "@sfran
 import { assessPassword, compareHashes, createQrDataUrl, createQrSvg, decodeBase64, decodeJwt, encodeBase64, generateOtp, generatePassword, generateUuids, hashFile, hashText, otpRemainingSeconds, parseOtpAuth, formatJson, minifyJson, relativeTime, timestampToDate, dateToTimestamp, scanQrImage, type HashAlgorithm } from "@sfrankey/tool-core";
 import { trackToolUsed } from "@/lib/analytics";
 import { recordRecentTool } from "@/lib/storage";
+import { TwoFactorWorkspace } from "@/components/two-factor-workspace";
 
 export function ToolClient({ locale, slug }: { locale: Locale; slug: string }) {
   React.useEffect(() => { trackToolUsed(slug); recordRecentTool(slug); }, [slug]);
   switch (slug) {
-    case "totp-generator": return <TotpTool locale={locale} />;
-    case "qr-2fa-scanner": return <QrScannerTool locale={locale} mode="2fa" />;
+    case "totp-generator": return <TwoFactorWorkspace locale={locale} initialTab="secret" />;
+    case "qr-2fa-scanner": return <TwoFactorWorkspace locale={locale} initialTab="scan" />;
     case "password-generator": return <PasswordGeneratorTool locale={locale} />;
     case "password-strength-checker": return <PasswordCheckerTool locale={locale} />;
     case "qr-generator": return <QrGeneratorTool locale={locale} />;

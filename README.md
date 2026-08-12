@@ -5,17 +5,17 @@ SFranKey is a privacy-first security and developer tools hub. Phase 1 is a local
 ## Development
 
 ```bash
-pnpm install
-pnpm dev
+npm install
+npm run dev
 ```
 
 The web app runs on `http://localhost:3000`; the API runs on `http://localhost:4000`.
 
 ```bash
-pnpm lint
-pnpm typecheck
-pnpm test
-pnpm build
+npm run lint
+npm run typecheck
+npm test
+npm run build
 ```
 
 See `docs/architecture.md`, `docs/security.md` and `docs/phase-1.md` for the implementation constraints.

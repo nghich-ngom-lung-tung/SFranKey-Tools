@@ -3,6 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "scripts": { "dev": "next dev", "build": "next build", "start": "next start", "lint": "tsc --noEmit", "typecheck": "tsc --noEmit", "test": "vitest run --passWithNoTests --exclude tests/**/*.spec.ts", "test:e2e": "playwright test" },
-  "dependencies": { "@sfrankey/i18n": "workspace:*", "@sfrankey/shared": "workspace:*", "@sfrankey/tool-core": "workspace:*", "@sfrankey/ui": "workspace:*", "next": "^15.5.6", "react": "^19.1.1", "react-dom": "^19.1.1" },
+  "dependencies": { "@sfrankey/i18n": "0.1.0", "@sfrankey/shared": "0.1.0", "@sfrankey/tool-core": "0.1.0", "@sfrankey/ui": "0.1.0", "next": "^15.5.6", "react": "^19.1.1", "react-dom": "^19.1.1" },
   "devDependencies": { "@playwright/test": "^1.55.0", "@tailwindcss/typography": "^0.5.16", "@types/node": "^22.15.30", "@types/react": "^19.1.11", "@types/react-dom": "^19.1.7", "autoprefixer": "^10.4.21", "postcss": "^8.5.6", "tailwindcss": "^3.4.17", "typescript": "^5.9.2", "vitest": "^3.2.4" }
 }

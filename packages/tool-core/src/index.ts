@@ -1,4 +1,5 @@
 export * from "./totp";
+export * from "./time";
 export * from "./password";
 export * from "./encoding";
 export * from "./hash";

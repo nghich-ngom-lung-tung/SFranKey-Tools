@@ -1,13 +1,16 @@
 FROM node:22-alpine AS base
-RUN corepack enable
 WORKDIR /app
-COPY package.json pnpm-workspace.yaml turbo.json tsconfig.base.json ./
+COPY package.json package-lock.json turbo.json tsconfig.base.json ./
 COPY apps/api/package.json apps/api/package.json
+COPY apps/web/package.json apps/web/package.json
+COPY packages/i18n/package.json packages/i18n/package.json
 COPY packages/shared/package.json packages/shared/package.json
-RUN pnpm install --frozen-lockfile=false
+COPY packages/tool-core/package.json packages/tool-core/package.json
+COPY packages/ui/package.json packages/ui/package.json
+RUN npm ci --ignore-scripts
 COPY packages/shared packages/shared
 COPY apps/api apps/api
-RUN pnpm --filter @sfrankey/api build
+RUN npm run build --workspace @sfrankey/api
 FROM node:22-alpine
 WORKDIR /app
 COPY --from=base /app/apps/api/dist apps/api/dist
