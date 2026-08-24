@@ -2,7 +2,11 @@ import { describe, expect, it } from "vitest";
 import { getDictionary } from "./index";
 import { toolDefinitions, categories } from "@sfrankey/shared";
 
-function findMissingKeys(objA: any, objB: any, path = ""): string[] {
+function findMissingKeys(
+  objA: Record<string, unknown>,
+  objB: Record<string, unknown>,
+  path = ""
+): string[] {
   const issues: string[] = [];
   const keysA = Object.keys(objA);
   const keysB = Object.keys(objB);
@@ -25,7 +29,13 @@ function findMissingKeys(objA: any, objB: any, path = ""): string[] {
 
     if (typeof valA === "object" && valA !== null && !Array.isArray(valA)) {
       if (typeof valB === "object" && valB !== null && !Array.isArray(valB)) {
-        issues.push(...findMissingKeys(valA, valB, currentPath));
+        issues.push(
+          ...findMissingKeys(
+            valA as Record<string, unknown>,
+            valB as Record<string, unknown>,
+            currentPath
+          )
+        );
       } else {
         issues.push(`Type mismatch at: ${currentPath}`);
       }
@@ -47,7 +57,10 @@ describe("i18n Full Parity & Coverage Audit", () => {
   const en = getDictionary("en");
 
   it("has 100% identical key structure between Vietnamese and English dictionaries", () => {
-    const issues = findMissingKeys(vi, en);
+    const issues = findMissingKeys(
+      vi as unknown as Record<string, unknown>,
+      en as unknown as Record<string, unknown>
+    );
     expect(issues).toEqual([]);
   });
 

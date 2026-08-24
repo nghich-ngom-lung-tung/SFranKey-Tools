@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import type { Locale, NetworkErrorCode } from "@sfrankey/shared";
+import type { IpProfile, Locale, NetworkErrorCode } from "@sfrankey/shared";
 import { getDictionary } from "@sfrankey/i18n";
 import { maskIp, parseIceCandidate } from "@sfrankey/tool-core/network";
 import { AlertTriangle, Building2, Button, Checkbox, cn, CopyButton, Input, Label, MapPin, Monitor, Select, ShieldCheck, Skeleton, StatusBadge } from "@sfrankey/ui";
@@ -59,7 +59,17 @@ function ResultValue({ value, masked }: { value: unknown; masked: boolean }) {
   return <pre className="max-h-72 overflow-auto whitespace-pre-wrap break-all text-xs font-mono">{JSON.stringify(value, null, 2)}</pre>;
 }
 
-function IpResultView({ profile, browser, masked, locale }: { profile: any; browser?: any; masked: boolean; locale: Locale }) {
+function IpResultView({
+  profile,
+  browser,
+  masked,
+  locale,
+}: {
+  profile: IpProfile;
+  browser?: Record<string, unknown>;
+  masked: boolean;
+  locale: Locale;
+}) {
   const isVi = locale === "vi";
   const displayIp = masked ? maskIp(profile.ip) : profile.ip;
   const isLoopback = profile.scope === "loopback" || profile.scope === "private";
