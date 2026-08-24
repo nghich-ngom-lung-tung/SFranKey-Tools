@@ -113,7 +113,7 @@ export function AnimatedPrivacyPipeline({ locale }: AnimatedPrivacyPipelineProps
               className={cn(
                 "shrink-0 rounded-lg px-2.5 py-1 text-[9px] font-bold uppercase tracking-wider transition-colors",
                 activeStep === 0
-                  ? "bg-teal-500 text-white shadow-xs dark:bg-teal-400 dark:text-teal-950"
+                  ? "bg-teal-700 text-white shadow-xs dark:bg-teal-400 dark:text-teal-950"
                   : "bg-teal-500/10 text-teal-800 dark:bg-teal-400/10 dark:text-teal-300"
               )}
             >
@@ -198,7 +198,7 @@ export function AnimatedPrivacyPipeline({ locale }: AnimatedPrivacyPipelineProps
               className={cn(
                 "shrink-0 rounded-lg px-2.5 py-1 text-[9px] font-bold uppercase tracking-wider transition-colors",
                 activeStep === 1
-                  ? "bg-emerald-500 text-white shadow-xs dark:bg-emerald-400 dark:text-emerald-950"
+                  ? "bg-emerald-700 text-white shadow-xs dark:bg-emerald-400 dark:text-emerald-950"
                   : "bg-emerald-500/15 text-emerald-900 dark:bg-emerald-400/15 dark:text-emerald-200"
               )}
             >
@@ -251,7 +251,7 @@ export function AnimatedPrivacyPipeline({ locale }: AnimatedPrivacyPipelineProps
                 className={cn(
                   "grid size-10 shrink-0 place-items-center rounded-xl shadow-xs ring-1 transition-all duration-300",
                   activeStep === 2
-                    ? "bg-cyan-500 text-white ring-cyan-400 scale-105"
+                    ? "bg-cyan-700 text-white ring-cyan-400 scale-105"
                     : "bg-cyan-500/15 text-cyan-700 ring-cyan-500/20 dark:bg-cyan-400/15 dark:text-cyan-300"
                 )}
               >
@@ -275,7 +275,7 @@ export function AnimatedPrivacyPipeline({ locale }: AnimatedPrivacyPipelineProps
               className={cn(
                 "shrink-0 rounded-lg px-2.5 py-1 text-[9px] font-bold uppercase tracking-wider transition-colors",
                 activeStep === 2
-                  ? "bg-cyan-500 text-white shadow-xs dark:bg-cyan-400 dark:text-cyan-950"
+                  ? "bg-cyan-700 text-white shadow-xs dark:bg-cyan-400 dark:text-cyan-950"
                   : "bg-cyan-500/10 text-cyan-800 dark:bg-cyan-400/10 dark:text-cyan-300"
               )}
             >

@@ -104,9 +104,9 @@ export function AboutHeroTerminal({ locale }: AboutHeroTerminalProps) {
                     <Icon size={16} />
                   </span>
                   <div>
-                    <h4 className="text-xs font-black text-brand-950 dark:text-brand-50">
+                    <span className="block text-xs font-black text-brand-950 dark:text-brand-50">
                       {item.title}
-                    </h4>
+                    </span>
                     <span className="font-mono text-[10px] font-bold text-brand-700/70 dark:text-brand-300/70">
                       [{item.tag}]
                     </span>

@@ -67,8 +67,8 @@ export function PersonalTools({ locale }: { locale: Locale }) {
             className={cn(
               "rounded-xl px-3 py-1.5 text-xs font-bold transition-all duration-200",
               filter === "all"
-                ? "bg-brand-500 text-white shadow-xs dark:bg-brand-400 dark:text-brand-950"
-                : "text-brand-800/70 hover:text-brand-950 dark:text-brand-200/70 dark:hover:text-brand-50"
+                ? "bg-brand-500 text-brand-950 shadow-xs dark:bg-brand-400 dark:text-brand-950"
+                : "text-brand-950/80 hover:text-brand-950 dark:text-brand-200/80 dark:hover:text-brand-50"
             )}
           >
             {locale === "vi" ? "Tất cả" : "All"}
@@ -79,8 +79,8 @@ export function PersonalTools({ locale }: { locale: Locale }) {
             className={cn(
               "flex items-center gap-1.5 rounded-xl px-3 py-1.5 text-xs font-bold transition-all duration-200",
               filter === "favorites"
-                ? "bg-rose-500 text-white shadow-xs dark:bg-rose-400 dark:text-rose-950"
-                : "text-brand-800/70 hover:text-rose-600 dark:text-brand-200/70 dark:hover:text-rose-400"
+                ? "bg-rose-600 text-white shadow-xs dark:bg-rose-400 dark:text-rose-950"
+                : "text-brand-950/80 hover:text-rose-700 dark:text-brand-200/80 dark:hover:text-rose-400"
             )}
           >
             <Heart size={13} className={filter === "favorites" ? "fill-white dark:fill-rose-950" : "fill-rose-500 text-rose-500"} />
@@ -97,13 +97,13 @@ export function PersonalTools({ locale }: { locale: Locale }) {
             className={cn(
               "flex items-center gap-1.5 rounded-xl px-3 py-1.5 text-xs font-bold transition-all duration-200",
               filter === "recents"
-                ? "bg-brand-500 text-white shadow-xs dark:bg-brand-400 dark:text-brand-950"
-                : "text-brand-800/70 hover:text-brand-950 dark:text-brand-200/70 dark:hover:text-brand-50"
+                ? "bg-brand-500 text-brand-950 shadow-xs dark:bg-brand-400 dark:text-brand-950"
+                : "text-brand-950/80 hover:text-brand-950 dark:text-brand-200/80 dark:hover:text-brand-50"
             )}
           >
             <span>{locale === "vi" ? "Vừa mở" : "Recents"}</span>
             {recentIds.length > 0 ? (
-              <span className={cn("rounded-full px-1.5 py-0.2 text-[10px] font-black", filter === "recents" ? "bg-white/20 text-white dark:bg-brand-950/40 dark:text-brand-950" : "bg-brand-100 text-brand-800 dark:bg-brand-900 dark:text-brand-300")}>
+              <span className={cn("rounded-full px-1.5 py-0.2 text-[10px] font-black", filter === "recents" ? "bg-brand-950/20 text-brand-950 dark:bg-brand-950/40 dark:text-brand-950" : "bg-brand-100 text-brand-800 dark:bg-brand-900 dark:text-brand-300")}>
                 {recentIds.length}
               </span>
             ) : null}

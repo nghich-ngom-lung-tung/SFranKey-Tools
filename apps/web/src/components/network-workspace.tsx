@@ -59,6 +59,14 @@ function ResultValue({ value, masked }: { value: unknown; masked: boolean }) {
   return <pre className="max-h-72 overflow-auto whitespace-pre-wrap break-all text-xs font-mono">{JSON.stringify(value, null, 2)}</pre>;
 }
 
+type BrowserEnvironment = {
+  language?: string;
+  timezone?: string;
+  viewport?: string;
+  screen?: string;
+  checkedAt?: string;
+};
+
 function IpResultView({
   profile,
   browser,
@@ -66,7 +74,7 @@ function IpResultView({
   locale,
 }: {
   profile: IpProfile;
-  browser?: Record<string, unknown>;
+  browser?: BrowserEnvironment;
   masked: boolean;
   locale: Locale;
 }) {
@@ -201,10 +209,10 @@ function StructuredResult({ value, masked, locale }: { value: unknown; masked: b
   
   const obj = value as Record<string, unknown>;
   if (obj.profile && typeof obj.profile === "object") {
-    return <IpResultView profile={obj.profile} browser={obj.browser} masked={masked} locale={locale} />;
+    return <IpResultView profile={obj.profile as IpProfile} browser={obj.browser as BrowserEnvironment | undefined} masked={masked} locale={locale} />;
   }
   if (obj.ip && obj.version && obj.scope) {
-    return <IpResultView profile={obj} masked={masked} locale={locale} />;
+    return <IpResultView profile={obj as unknown as IpProfile} masked={masked} locale={locale} />;
   }
 
   return (

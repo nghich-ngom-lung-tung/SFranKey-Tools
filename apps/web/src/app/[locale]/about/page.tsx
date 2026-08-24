@@ -817,12 +817,12 @@ export default async function AboutPage({
                     <ShieldCheck size={20} />
                   </span>
                   <div>
-                    <h4 className="text-sm font-black text-brand-950 group-hover/item:text-emerald-800 dark:text-brand-50 dark:group-hover/item:text-emerald-300 transition-colors">
+                    <h3 className="text-sm font-black text-brand-950 group-hover/item:text-emerald-800 dark:text-brand-50 dark:group-hover/item:text-emerald-300 transition-colors">
                       {locale === "vi"
                         ? "100% Cục bộ & Bảo mật"
                         : "100% On-Device & Private"}
-                    </h4>
-                    <p className="text-xs text-brand-800/65 dark:text-brand-200/65">
+                    </h3>
+                    <p className="text-xs text-brand-950/80 dark:text-brand-200/80 font-medium">
                       {locale === "vi"
                         ? "Không upload input nhạy cảm"
                         : "Zero sensitive data uploads"}
@@ -835,12 +835,12 @@ export default async function AboutPage({
                     <Cpu size={20} />
                   </span>
                   <div>
-                    <h4 className="text-sm font-black text-brand-950 group-hover/item:text-teal-800 dark:text-brand-50 dark:group-hover/item:text-teal-300 transition-colors">
+                    <h3 className="text-sm font-black text-brand-950 group-hover/item:text-teal-800 dark:text-brand-50 dark:group-hover/item:text-teal-300 transition-colors">
                       {locale === "vi"
                         ? "Không cần tạo tài khoản"
                         : "No Registration Required"}
-                    </h4>
-                    <p className="text-xs text-brand-800/65 dark:text-brand-200/65">
+                    </h3>
+                    <p className="text-xs text-brand-950/80 dark:text-brand-200/80 font-medium">
                       {locale === "vi"
                         ? "Mở web là sử dụng ngay lập tức"
                         : "Instant access directly in your browser"}

@@ -148,7 +148,7 @@ export function BrandLogo({ locale, descriptor, compact = false, inverse = false
           <span className="size-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)] animate-pulse" />
         </span>
         {descriptor ? (
-          <span className={cn("block truncate text-[10px] font-bold uppercase tracking-wider", inverse ? "text-brand-200/80" : "text-brand-800/70 dark:text-brand-300/70")}>
+          <span className={cn("block truncate text-[10px] font-bold uppercase tracking-wider", inverse ? "text-brand-200/90" : "text-brand-950/80 dark:text-brand-200/80")}>
             {descriptor}
           </span>
         ) : null}

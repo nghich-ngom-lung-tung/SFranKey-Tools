@@ -103,7 +103,7 @@ function ShellInner({ locale, children }: { locale: Locale; children: React.Reac
     <SplashScreen locale={locale} />
     <header className={headerClass(scrolled)}>
       <div className={`mx-auto flex max-w-7xl items-center gap-2 px-4 transition-[height] duration-normal sm:px-6 ${scrolled ? "h-16" : "h-[4.75rem]"}`}>
-        <Link href={localePath(locale)} className="shrink-0 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500" aria-label="SFranKey home">
+        <Link href={localePath(locale)} className="shrink-0 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500">
           <BrandLogo locale={locale} descriptor={scrolled ? undefined : t.brandDescriptor} compact />
         </Link>
         <div className="hidden h-8 w-px bg-brand-700/15 dark:bg-brand-200/15 lg:block" />
@@ -112,17 +112,17 @@ function ShellInner({ locale, children }: { locale: Locale; children: React.Reac
           <CategoryMenu locale={locale} active={pathname.includes("/categories/")} label={t.nav.categories} />
           <HeaderLink href={localePath(locale, "about")} active={pathname.includes("/about")}>{t.nav.about}</HeaderLink>
         </nav>
-        <button type="button" onClick={() => setSearchOpen(true)} className="ml-auto flex h-11 min-w-0 flex-1 items-center gap-2 rounded-[var(--radius-md)] border border-[var(--border-card)] bg-[var(--surface-header-control)] px-3 text-left text-sm text-[var(--ink-muted)] shadow-sm transition-[border-color,background-color,box-shadow] duration-normal hover:border-brand-400 hover:bg-[var(--surface-card)] hover:shadow-soft sm:ml-4 sm:max-w-[26rem]" aria-label={t.ui.openSearch}>
+        <button type="button" onClick={() => setSearchOpen(true)} className="ml-auto flex h-11 min-w-0 flex-1 items-center gap-2 rounded-[var(--radius-md)] border border-[var(--border-card)] bg-[var(--surface-header-control)] px-3 text-left text-sm text-[var(--ink-muted)] shadow-sm transition-[border-color,background-color,box-shadow] duration-normal hover:border-brand-400 hover:bg-[var(--surface-card)] hover:shadow-soft sm:ml-4 sm:max-w-[26rem]">
           <Search size={17} className="text-brand-700 dark:text-brand-300" />
           <span className="truncate">{t.common.search}</span>
-          <kbd className="ml-auto hidden rounded-md border border-[var(--border-card)] bg-[var(--surface-card-tinted)] px-1.5 py-0.5 text-[10px] font-semibold text-[var(--ink-muted)] sm:block">{typeof navigator !== "undefined" && navigator.platform.includes("Mac") ? "⌘ K" : "Ctrl K"}</kbd>
+          <kbd aria-hidden="true" className="ml-auto hidden rounded-md border border-[var(--border-card)] bg-[var(--surface-card-tinted)] px-1.5 py-0.5 text-[10px] font-semibold text-[var(--ink-muted)] sm:block">{typeof navigator !== "undefined" && navigator.platform.includes("Mac") ? "⌘ K" : "Ctrl K"}</kbd>
         </button>
         <div className="hidden items-center gap-1 rounded-2xl border border-[var(--border-card)] bg-[var(--surface-header-control)] p-1 sm:flex">
           <DropdownMenu>
             <DropdownMenuTrigger asChild><Button type="button" variant="ghost" size="icon" aria-label={t.ui.theme}>{theme === "dark" ? <Moon size={18} /> : theme === "light" ? <Sun size={18} /> : <span className="text-sm">◐</span>}</Button></DropdownMenuTrigger>
             <DropdownMenuContent align="end"><DropdownMenuItem onSelect={() => setTheme("system")}>◐ {t.ui.system}</DropdownMenuItem><DropdownMenuItem onSelect={() => setTheme("light")}><Sun size={15} />{t.ui.light}</DropdownMenuItem><DropdownMenuItem onSelect={() => setTheme("dark")}><Moon size={15} />{t.ui.dark}</DropdownMenuItem></DropdownMenuContent>
           </DropdownMenu>
-          <Link href={switchedPath} className="grid min-h-11 place-items-center rounded-[var(--radius-md)] border border-[var(--border-card)] px-3 text-xs font-bold text-[var(--ink)] transition hover:border-brand-400 hover:bg-[var(--surface-card)]" aria-label={t.ui.language}>{otherLocale.toUpperCase()}</Link>
+          <Link href={switchedPath} className="grid min-h-11 place-items-center rounded-[var(--radius-md)] border border-[var(--border-card)] px-3 text-xs font-bold text-[var(--ink)] transition hover:border-brand-400 hover:bg-[var(--surface-card)]" aria-label={`${otherLocale.toUpperCase()} - ${t.ui.language}`}>{otherLocale.toUpperCase()}</Link>
         </div>
         <div className="flex items-center gap-1 sm:hidden"><IconButton label={t.ui.openSearch} onClick={() => setSearchOpen(true)}><Search size={18} /></IconButton><IconButton label={t.ui.menu} onClick={() => setMobileOpen(true)}><Menu size={19} /></IconButton></div>
       </div>
@@ -196,17 +196,17 @@ function Footer({ locale, switchedPath }: { locale: Locale; switchedPath: string
             </span>
           </div>
 
-          <div className="flex items-center gap-3 text-xs text-brand-800/80 dark:text-brand-200/80">
+          <div className="flex items-center gap-3 text-xs text-brand-950/90 dark:text-brand-100/90 font-medium">
             <span>
               <strong className="font-black text-brand-950 dark:text-brand-50">{toolDefinitions.length}</strong> {t.ui.statsTools}
             </span>
             <span className="size-1 rounded-full bg-brand-400" />
             <span>
-              <strong className="font-black text-emerald-600 dark:text-emerald-400">{localTools}</strong> {locale === "vi" ? "cục bộ (RAM)" : "on-device"}
+              <strong className="font-black text-emerald-700 dark:text-emerald-400">{localTools}</strong> {locale === "vi" ? "cục bộ (RAM)" : "on-device"}
             </span>
             <span className="size-1 rounded-full bg-brand-400" />
             <span>
-              <strong className="font-black text-sky-600 dark:text-sky-400">{networkTools}</strong> {locale === "vi" ? "cần mạng" : "network"}
+              <strong className="font-black text-sky-700 dark:text-sky-400">{networkTools}</strong> {locale === "vi" ? "cần mạng" : "network"}
             </span>
           </div>
         </div>
@@ -221,11 +221,11 @@ function Footer({ locale, switchedPath }: { locale: Locale; switchedPath: string
             </p>
 
             <div className="mt-4 flex flex-wrap items-center gap-2">
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-300/70 bg-emerald-50/70 px-2.5 py-1 text-[10px] font-black uppercase tracking-wider text-emerald-900 shadow-xs dark:border-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300">
-                <ShieldCheck size={13} className="text-emerald-600 dark:text-emerald-400" />
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-400/80 bg-emerald-100/80 px-2.5 py-1 text-[10px] font-black uppercase tracking-wider text-emerald-950 shadow-xs dark:border-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300">
+                <ShieldCheck size={13} className="text-emerald-700 dark:text-emerald-400" />
                 Zero Telemetry
               </span>
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-brand-200/70 bg-white/70 px-2.5 py-1 text-[10px] font-bold text-brand-800 shadow-xs dark:border-brand-800 dark:bg-brand-900/50 dark:text-brand-200">
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-brand-300/80 bg-white/90 px-2.5 py-1 text-[10px] font-bold text-brand-950 shadow-xs dark:border-brand-800 dark:bg-brand-900/50 dark:text-brand-200">
                 MIT License
               </span>
             </div>
@@ -233,9 +233,9 @@ function Footer({ locale, switchedPath }: { locale: Locale; switchedPath: string
             <div className="mt-5">
               <Link
                 href={switchedPath}
-                className="group inline-flex items-center gap-2 rounded-xl border border-[var(--border-card)] bg-white/70 px-3 py-1.5 text-xs font-bold text-[var(--ink)] shadow-xs transition hover:border-brand-400 hover:bg-white dark:bg-white/[0.04] dark:hover:bg-white/[0.08]"
+                className="group inline-flex items-center gap-2 rounded-xl border border-[var(--border-card)] bg-white/90 px-3 py-1.5 text-xs font-bold text-brand-950 shadow-xs transition hover:border-brand-400 hover:bg-white dark:bg-white/[0.04] dark:text-brand-100 dark:hover:bg-white/[0.08]"
               >
-                <Globe size={14} className="text-brand-600 dark:text-brand-300" />
+                <Globe size={14} className="text-brand-700 dark:text-brand-300" />
                 <span>{otherLocale.toUpperCase()} · {locale === "vi" ? "Switch to English" : "Chuyển sang Tiếng Việt"}</span>
                 <ArrowRight size={12} className="transition-transform duration-200 group-hover:translate-x-0.5" />
               </Link>
@@ -417,7 +417,7 @@ function FooterLink({
       className={cn(
         "group inline-flex items-center gap-2 transition-colors duration-fast",
         highlight
-          ? "font-bold text-brand-600 hover:text-brand-500 dark:text-brand-400 dark:hover:text-brand-300"
+          ? "font-bold text-brand-950 underline underline-offset-4 hover:text-brand-700 dark:text-brand-200 dark:hover:text-brand-100"
           : "hover:text-brand-700 dark:hover:text-brand-300"
       )}
     >

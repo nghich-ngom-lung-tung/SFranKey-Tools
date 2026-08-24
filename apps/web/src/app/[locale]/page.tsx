@@ -64,7 +64,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
       <div className="mx-auto max-w-7xl">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-[.18em] text-brand-600 dark:text-brand-400">
+            <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-[.18em] text-brand-700 dark:text-brand-300">
               <span className="size-1.5 rounded-full bg-brand-500 animate-pulse" />
               {locale === "vi" ? "Được dùng nhiều nhất" : "Most popular"}
             </span>
@@ -105,7 +105,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
       <div className="mx-auto max-w-7xl">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-[.18em] text-brand-600 dark:text-brand-400">
+            <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-[.18em] text-brand-700 dark:text-brand-300">
               <span className="size-1.5 rounded-full bg-brand-500 animate-pulse" />
               {locale === "vi" ? "Hệ sinh thái tiện ích" : "Tool Directory"}
             </span>
@@ -170,7 +170,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
                 <h3 className="text-sm font-black text-brand-950 dark:text-brand-50">
                   {locale === "vi" ? "Xử lý 100% trong RAM trình duyệt" : "100% In-Memory Browser Execution"}
                 </h3>
-                <p className="mt-1 text-xs leading-5 text-brand-900/65 dark:text-brand-100/65">
+                <p className="mt-1 text-xs leading-5 font-medium text-brand-950/85 dark:text-brand-100/85">
                   {locale === "vi"
                     ? "Mật khẩu, mã OTP, khóa bí mật, chuỗi JSON và file băm được tính toán qua Web Crypto API cục bộ trên máy bạn."
                     : "Passwords, OTP tokens, private keys, JSON strings and hash digests execute locally via Web Crypto API in browser memory."}
@@ -186,7 +186,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
                 <h3 className="text-sm font-black text-brand-950 dark:text-brand-50">
                   {locale === "vi" ? "Minh bạch ranh giới mạng (Explicit Boundary)" : "Transparent Network Boundary"}
                 </h3>
-                <p className="mt-1 text-xs leading-5 text-brand-900/65 dark:text-brand-100/65">
+                <p className="mt-1 text-xs leading-5 font-medium text-brand-950/85 dark:text-brand-100/85">
                   {locale === "vi"
                     ? "Tuyệt đối không upload ngầm. Chỉ các công cụ chẩn đoán mạng mới gửi gói tin khi bạn chủ động nhấn và luôn công khai đích đến."
                     : "Zero hidden telemetry or background uploads. Network diagnostic tools only send requests upon explicit user action."}
@@ -202,7 +202,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
                 <h3 className="text-sm font-black text-brand-950 dark:text-brand-50">
                   {locale === "vi" ? "Không lưu trữ rác (Zero Persistence & Tracking)" : "Zero Persistence & No Tracking"}
                 </h3>
-                <p className="mt-1 text-xs leading-5 text-brand-900/65 dark:text-brand-100/65">
+                <p className="mt-1 text-xs leading-5 font-medium text-brand-950/85 dark:text-brand-100/85">
                   {locale === "vi"
                     ? "Không cookie, không tracking dữ liệu nhạy cảm. Đóng tab hoặc tải lại trang là toàn bộ dữ liệu tạm biến mất hoàn toàn."
                     : "No cookies or tracking on sensitive inputs. Closing the tab immediately purges all temporary workspace state."}
@@ -282,9 +282,9 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
                   <ShieldCheck size={20} />
                 </span>
                 <div>
-                  <h4 className="text-sm font-black text-brand-950 dark:text-brand-50">
+                  <h3 className="text-sm font-black text-brand-950 dark:text-brand-50">
                     {locale === "vi" ? "100% Cục bộ & Bảo mật" : "100% On-Device & Private"}
-                  </h4>
+                  </h3>
                   <p className="text-xs text-brand-800/65 dark:text-brand-200/65">
                     {locale === "vi" ? "Không server trung gian, không thu thập dữ liệu" : "Zero intermediary servers or data logging"}
                   </p>
@@ -296,9 +296,9 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
                   <Cpu size={20} />
                 </span>
                 <div>
-                  <h4 className="text-sm font-black text-brand-950 dark:text-brand-50">
+                  <h3 className="text-sm font-black text-brand-950 dark:text-brand-50">
                     {locale === "vi" ? "Mã nguồn mở & Miễn phí" : "Open Source & Free Forever"}
-                  </h4>
+                  </h3>
                   <p className="text-xs text-brand-800/65 dark:text-brand-200/65">
                     {locale === "vi" ? "Được xây dựng cho cộng đồng developer" : "Built transparently for the developer community"}
                   </p>
@@ -310,9 +310,9 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
                   <Sparkles size={20} />
                 </span>
                 <div>
-                  <h4 className="text-sm font-black text-brand-950 dark:text-brand-50">
+                  <h3 className="text-sm font-black text-brand-950 dark:text-brand-50">
                     {locale === "vi" ? "Triển khai nhanh theo yêu cầu" : "Fast Turnaround on Requests"}
-                  </h4>
+                  </h3>
                   <p className="text-xs text-brand-800/65 dark:text-brand-200/65">
                     {locale === "vi" ? "Đề xuất được xét duyệt & phát triển liên tục" : "Reviewed & developed continuously with community"}
                   </p>
@@ -339,19 +339,19 @@ function TrustStat({
 }) {
   const color =
     highlight === "emerald"
-      ? "text-emerald-600 dark:text-emerald-400"
+      ? "text-emerald-700 dark:text-emerald-400"
       : highlight === "sky"
-      ? "text-sky-600 dark:text-sky-400"
+      ? "text-sky-700 dark:text-sky-400"
       : highlight === "amber"
-      ? "text-amber-600 dark:text-amber-400"
-      : "text-brand-600 dark:text-brand-400";
+      ? "text-amber-700 dark:text-amber-400"
+      : "text-brand-700 dark:text-brand-400";
 
   return (
     <div className="flex flex-col items-center justify-center p-4 text-center transition-transform duration-200 hover:-translate-y-0.5 sm:p-5">
       <span className={cn("text-2xl font-black tracking-tight sm:text-3xl lg:text-4xl", color)}>
         {value}
       </span>
-      <span className="mt-1 text-[11px] font-bold uppercase tracking-[.14em] text-brand-800/70 dark:text-brand-200/70">
+      <span className="mt-1 text-[11px] font-bold uppercase tracking-[.14em] text-brand-950/80 dark:text-brand-200/80">
         {label}
       </span>
     </div>
@@ -469,7 +469,7 @@ function CategoryRowItem({
 
       <div className="relative z-10 flex items-center gap-3.5 min-w-0 sm:gap-4">
         {/* Monospace Index Number with dynamic hover color */}
-        <span className={cn("font-mono text-xs font-black tracking-wider text-brand-400/80 transition-colors duration-200", hover.text)}>
+        <span className={cn("font-mono text-xs font-black tracking-wider text-brand-700 dark:text-brand-300 transition-colors duration-200", hover.text)}>
           {indexNumber}
         </span>
 
@@ -488,7 +488,7 @@ function CategoryRowItem({
               {tools.length} {t.ui.statsTools}
             </span>
           </div>
-          <p className="mt-0.5 truncate text-xs text-brand-900/60 dark:text-brand-100/60">
+          <p className="mt-0.5 truncate text-xs font-medium text-brand-950/80 dark:text-brand-100/80">
             {desc}
           </p>
         </div>
