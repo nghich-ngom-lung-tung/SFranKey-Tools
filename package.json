@@ -1,6 +1,7 @@
 {
   "name": "sfrankey",
   "private": true,
+  "license": "MIT",
   "packageManager": "npm@10.9.3",
   "workspaces": [
     "apps/*",
