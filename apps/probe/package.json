@@ -1,0 +1,26 @@
+{
+  "name": "@sfrankey/probe",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc -p tsconfig.build.json",
+    "start": "node dist/server.js",
+    "lint": "eslint . --max-warnings=0",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:e2e": "echo Probe smoke tests run in preview"
+  },
+  "dependencies": {
+    "dns-packet": "5.6.1",
+    "zod": "^4.1.5"
+  },
+  "devDependencies": {
+    "@types/dns-packet": "5.6.5",
+    "@types/node": "^22.15.30",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
+  }
+}

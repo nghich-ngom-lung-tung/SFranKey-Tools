@@ -1,2 +1,2 @@
 import rateLimit from "express-rate-limit";
-export const feedbackRateLimit = rateLimit({ windowMs: 15 * 60 * 1000, limit: 5, standardHeaders: "draft-8", legacyHeaders: false, message: { success: false, error: { code: "RATE_LIMITED", message: "Too many feedback requests. Try again later." } } });
+export const feedbackRateLimit = rateLimit({ windowMs: 15 * 60 * 1000, limit: 5, standardHeaders: "draft-8", legacyHeaders: false, handler: (_req, res) => { const requestId = String(res.locals.requestId ?? "unknown"); res.status(429).json({ success: false, error: { code: "RATE_LIMITED", message: "Too many feedback requests. Try again later.", requestId } }); } });

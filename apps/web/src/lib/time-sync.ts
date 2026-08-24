@@ -1,4 +1,4 @@
-import { estimateClockOffset, type ClockSyncState } from "@sfrankey/tool-core";
+import { estimateClockOffset, type ClockSyncState } from "@sfrankey/tool-core/time";
 
 type TimeResponse = { unixMs?: unknown };
 

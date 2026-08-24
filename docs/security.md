@@ -1,6 +1,9 @@
 # Security baseline
 
 - Secrets, passwords, JWTs and file contents never enter URLs, analytics, logs or local storage.
+- Password generation uses `crypto.getRandomValues()` with rejection sampling; no security value uses `Math.random()`.
+- The password checker uses zxcvbn-ts locally and limits input to 512 characters. It does not perform breach lookups or send the password to an API.
+- The EFF Long Wordlist is bundled offline for passphrase generation; generated values remain in component memory until the user clears or leaves the page.
 - Browser tools do not call the API with user input.
 - TOTP clock synchronization requests contain no secret or OTP configuration; if the endpoint fails, the browser clock remains the fallback.
 - CSPRNG comes from Web Crypto; `Math.random()` is not used for security values.
@@ -8,3 +11,12 @@
 - Feedback request bodies are never logged. SMTP and Turnstile secrets are server-only.
 - Camera permission is requested only from an explicit QR scanner action and is released on unmount.
 - TOTP secrets, setup URIs and QR frames are held in component memory only and are cleared by Reset or when the page is left.
+- QR Generator builds text, URL, email, phone, SMS, Wi-Fi and vCard payloads locally. QR Reader validates PNG/JPEG/WebP magic bytes, scales images before decoding and never opens a URL without confirmation.
+- Camera frames are sampled locally, with every MediaStream track, animation frame, ImageBitmap and canvas reference cleaned up on success, reset, hidden tabs and unmount.
+- Base64 text is limited to 5 MiB; Base64 files are limited to 10 MiB. File encode/decode work runs in a cancellable worker and decoded HTML, SVG, PDF and image bytes are offered only as downloads.
+- Hash Generator hashes exact UTF-8 text with Web Crypto. File Checksum uses a cancellable Web Worker with `hash-wasm` streaming chunks up to 200 MiB; it never calls `file.arrayBuffer()` for the complete file.
+- Hex digest comparison normalizes whitespace, an optional `0x` prefix and case. Base64 comparison preserves case and validates the algorithm-specific digest length.
+- Worker execution is constrained by `worker-src 'self'` and `wasm-unsafe-eval`; production CSP does not enable general `unsafe-eval`.
+- Production web responses enable HSTS for two years with subdomains and preload, alongside `nosniff`, frame restrictions, a strict referrer policy and a camera-only permissions policy.
+- QR content, Base64 values, hash input/digests, file bytes and filenames are excluded from analytics and console logging.
+- JWT Decoder is decode-only and never verifies signatures or performs key lookup. JSON Formatter rejects comments, trailing commas, duplicate keys and excessive depth before rendering output. UUID v4 fails closed without Web Crypto, and Timestamp Converter requires an explicit Earlier/Later choice for DST ambiguity.

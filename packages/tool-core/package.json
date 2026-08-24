@@ -4,8 +4,103 @@
   "private": true,
   "type": "module",
   "types": "./src/index.ts",
-  "exports": { ".": { "types": "./src/index.ts", "import": "./src/index.ts", "default": "./src/index.ts" } },
-  "scripts": { "lint": "tsc --noEmit", "typecheck": "tsc --noEmit", "test": "vitest run --passWithNoTests" },
-  "dependencies": { "jsqr": "^1.4.0", "qrcode": "^1.5.4" },
-  "devDependencies": { "@types/qrcode": "^1.5.5", "typescript": "^5.9.2", "vitest": "^3.2.4" }
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "import": "./src/index.ts",
+      "default": "./src/index.ts"
+    },
+    "./encoding": {
+      "types": "./src/encoding.ts",
+      "import": "./src/encoding.ts",
+      "default": "./src/encoding.ts"
+    },
+    "./hash": {
+      "types": "./src/hash.ts",
+      "import": "./src/hash.ts",
+      "default": "./src/hash.ts"
+    },
+    "./qr": {
+      "types": "./src/qr.ts",
+      "import": "./src/qr.ts",
+      "default": "./src/qr.ts"
+    },
+    "./qr-render": {
+      "types": "./src/qr-render.ts",
+      "import": "./src/qr-render.ts",
+      "default": "./src/qr-render.ts"
+    },
+    "./qr-scan": {
+      "types": "./src/qr-scan.ts",
+      "import": "./src/qr-scan.ts",
+      "default": "./src/qr-scan.ts"
+    },
+    "./jwt": {
+      "types": "./src/jwt.ts",
+      "import": "./src/jwt.ts",
+      "default": "./src/jwt.ts"
+    },
+    "./json": {
+      "types": "./src/json.ts",
+      "import": "./src/json.ts",
+      "default": "./src/json.ts"
+    },
+    "./uuid": {
+      "types": "./src/uuid.ts",
+      "import": "./src/uuid.ts",
+      "default": "./src/uuid.ts"
+    },
+    "./timestamp": {
+      "types": "./src/timestamp.ts",
+      "import": "./src/timestamp.ts",
+      "default": "./src/timestamp.ts"
+    },
+    "./password": {
+      "types": "./src/password.ts",
+      "import": "./src/password.ts",
+      "default": "./src/password.ts"
+    },
+    "./password-strength": {
+      "types": "./src/password-strength.ts",
+      "import": "./src/password-strength.ts",
+      "default": "./src/password-strength.ts"
+    },
+    "./totp": {
+      "types": "./src/totp.ts",
+      "import": "./src/totp.ts",
+      "default": "./src/totp.ts"
+    },
+    "./time": {
+      "types": "./src/time.ts",
+      "import": "./src/time.ts",
+      "default": "./src/time.ts"
+    },
+    "./network": {
+      "types": "./src/network.ts",
+      "import": "./src/network.ts",
+      "default": "./src/network.ts"
+    }
+  },
+  "scripts": {
+    "lint": "eslint . --max-warnings=0",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --passWithNoTests"
+  },
+  "dependencies": {
+    "@sfrankey/shared": "0.1.0",
+    "@zxcvbn-ts/core": "4.1.2",
+    "@zxcvbn-ts/language-common": "4.1.3",
+    "@zxcvbn-ts/language-en": "4.1.1",
+    "hash-wasm": "4.12.0",
+    "ipaddr.js": "2.2.0",
+    "jsonc-parser": "3.3.1",
+    "jsqr": "1.4.0",
+    "qrcode": "1.5.4",
+    "temporal-polyfill": "1.0.4"
+  },
+  "devDependencies": {
+    "@types/qrcode": "1.5.5",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
+  }
 }

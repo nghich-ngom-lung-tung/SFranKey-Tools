@@ -1,0 +1,80 @@
+export const networkSuiteDictionaries = {
+  en: {
+    networkSuite: {
+      disclosureTitle: "Network check — explicit connection required",
+      disclosure: "This check sends only the value described below to the SFranKey API. The request starts after you press Check; results are diagnostic estimates and are not saved.",
+      targetLabel: "IP, hostname or URL",
+      ipPlaceholder: "1.1.1.1 or 2606:4700:4700::1111",
+      hostPlaceholder: "example.com",
+      urlPlaceholder: "https://example.com",
+      check: "Run check",
+      cancel: "Cancel",
+      recheck: "Check again",
+      reveal: "Reveal IP",
+      hide: "Hide IP",
+      copySummary: "Copy summary",
+      noRequest: "No request has been sent yet.",
+      unavailable: "This capability is not configured in this environment.",
+      partial: "Some measurements were unavailable. The available results are shown below.",
+      approximate: "IP location and network detection are approximate.",
+      results: "Diagnostic results",
+      publicIp: "Public IP",
+      browserInfo: "Browser information (computed locally)",
+      dnsTypes: "DNS record types",
+      selectedMode: "Check mode",
+      myIp: "My current IP",
+      enteredIp: "Enter an IP",
+      records: "DNS records",
+      certificate: "TLS certificate",
+      redirectChain: "Redirect chain",
+      headers: "Header assessment",
+      candidates: "WebRTC candidates",
+      resolvers: "Observed DNS resolvers",
+      startLeak: "Start leak diagnostics",
+      stop: "Stop test",
+      privacyStates: { detected: "Detected", "not-detected": "Not detected in the current data source", unknown: "Unknown" },
+      errors: {
+        NETWORK_TOOLS_DISABLED: "Network tools are disabled in this environment.", TURNSTILE_REQUIRED: "Verification is required before this check.", TURNSTILE_FAILED: "Verification failed. Please try again.", INVALID_IP: "Enter a valid IPv4 or IPv6 address.", NON_PUBLIC_IP: "This address is not public; internet geolocation does not apply.", INVALID_HOSTNAME: "Enter a valid public hostname.", INVALID_URL: "Enter a valid public HTTP or HTTPS URL.", UNSUPPORTED_PROTOCOL: "Only HTTP and HTTPS are supported.", UNSUPPORTED_PORT: "Only the default HTTP and HTTPS ports are supported.", UNSAFE_TARGET: "This target resolves to a private or reserved network and was blocked.", DNS_LOOKUP_FAILED: "DNS lookup failed.", DNS_NXDOMAIN: "The hostname does not exist.", PROVIDER_UNAVAILABLE: "The network data provider is temporarily unavailable.", CAPABILITY_UNAVAILABLE: "The requested signal is not available from the configured provider.", REQUEST_TIMEOUT: "The check timed out.", TLS_HANDSHAKE_FAILED: "The TLS handshake failed.", REDIRECT_LOOP: "The redirect chain contains a loop.", TOO_MANY_REDIRECTS: "The redirect chain is too long.", PROBE_UNAVAILABLE: "The self-hosted leak probe is unavailable.", SESSION_EXPIRED: "The diagnostic session expired.", RATE_LIMITED: "Too many checks. Please wait and try again.", PROCESSING_FAILED: "The check could not be completed."
+      }
+    }
+  },
+  vi: {
+    networkSuite: {
+      disclosureTitle: "Kiểm tra qua mạng — cần kết nối chủ động",
+      disclosure: "Phép kiểm tra chỉ gửi giá trị được mô tả bên dưới tới API SFranKey. Request chỉ bắt đầu sau khi bạn bấm Kiểm tra; kết quả là chẩn đoán ước tính và không được lưu.",
+      targetLabel: "IP, hostname hoặc URL",
+      ipPlaceholder: "1.1.1.1 hoặc 2606:4700:4700::1111",
+      hostPlaceholder: "example.com",
+      urlPlaceholder: "https://example.com",
+      check: "Chạy kiểm tra",
+      cancel: "Hủy",
+      recheck: "Kiểm tra lại",
+      reveal: "Hiện IP",
+      hide: "Che IP",
+      copySummary: "Sao chép tóm tắt",
+      noRequest: "Chưa có request nào được gửi.",
+      unavailable: "Khả năng này chưa được cấu hình trong môi trường hiện tại.",
+      partial: "Một số phép đo không khả dụng. Các kết quả nhận được vẫn được hiển thị bên dưới.",
+      approximate: "Vị trí IP và nhận diện mạng chỉ là ước tính.",
+      results: "Kết quả chẩn đoán",
+      publicIp: "IP công khai",
+      browserInfo: "Thông tin trình duyệt (tính cục bộ)",
+      dnsTypes: "Loại bản ghi DNS",
+      selectedMode: "Chế độ kiểm tra",
+      myIp: "IP hiện tại của tôi",
+      enteredIp: "Nhập một IP",
+      records: "Bản ghi DNS",
+      certificate: "Chứng chỉ TLS",
+      redirectChain: "Chuỗi chuyển hướng",
+      headers: "Đánh giá header",
+      candidates: "WebRTC candidate",
+      resolvers: "DNS resolver quan sát được",
+      startLeak: "Bắt đầu chẩn đoán leak",
+      stop: "Dừng kiểm tra",
+      privacyStates: { detected: "Phát hiện", "not-detected": "Không phát hiện trong nguồn dữ liệu hiện tại", unknown: "Không xác định" },
+      errors: {
+        NETWORK_TOOLS_DISABLED: "Công cụ mạng đang bị tắt trong môi trường này.", TURNSTILE_REQUIRED: "Cần xác minh trước khi kiểm tra.", TURNSTILE_FAILED: "Xác minh thất bại. Hãy thử lại.", INVALID_IP: "Hãy nhập địa chỉ IPv4 hoặc IPv6 hợp lệ.", NON_PUBLIC_IP: "Địa chỉ này không công khai nên geolocation Internet không áp dụng.", INVALID_HOSTNAME: "Hãy nhập hostname công khai hợp lệ.", INVALID_URL: "Hãy nhập URL HTTP hoặc HTTPS công khai hợp lệ.", UNSUPPORTED_PROTOCOL: "Chỉ hỗ trợ HTTP và HTTPS.", UNSUPPORTED_PORT: "Chỉ hỗ trợ port HTTP/HTTPS mặc định.", UNSAFE_TARGET: "Target trỏ tới mạng private hoặc reserved nên đã bị chặn.", DNS_LOOKUP_FAILED: "Không thể tra cứu DNS.", DNS_NXDOMAIN: "Hostname không tồn tại.", PROVIDER_UNAVAILABLE: "Nhà cung cấp dữ liệu mạng tạm thời không khả dụng.", CAPABILITY_UNAVAILABLE: "Nguồn dữ liệu hiện tại không cung cấp tín hiệu này.", REQUEST_TIMEOUT: "Phép kiểm tra đã hết thời gian.", TLS_HANDSHAKE_FAILED: "TLS handshake thất bại.", REDIRECT_LOOP: "Chuỗi chuyển hướng có vòng lặp.", TOO_MANY_REDIRECTS: "Chuỗi chuyển hướng quá dài.", PROBE_UNAVAILABLE: "Probe leak tự host không khả dụng.", SESSION_EXPIRED: "Phiên chẩn đoán đã hết hạn.", RATE_LIMITED: "Bạn kiểm tra quá nhiều lần. Hãy đợi rồi thử lại.", PROCESSING_FAILED: "Không thể hoàn thành phép kiểm tra."
+      }
+    }
+  }
+} as const;
