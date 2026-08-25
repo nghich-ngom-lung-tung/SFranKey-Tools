@@ -190,7 +190,7 @@ export default async function SecurityPage({
               {limitations.map((item) => (
                 <div
                   key={item.title}
-                  className="rounded-2xl border border-amber-200/80 bg-white/90 p-4.5 shadow-2xs transition-all duration-200 hover:bg-amber-50/50 dark:border-amber-800/60 dark:bg-brand-900/60 dark:hover:bg-amber-950/30"
+                  className="rounded-2xl border border-amber-200/80 bg-white/90 p-5 shadow-2xs transition-all duration-200 hover:bg-amber-50/50 dark:border-amber-800/60 dark:bg-brand-900/60 dark:hover:bg-amber-950/30"
                 >
                   <h3 className="text-sm font-black text-brand-950 dark:text-brand-50">
                     {item.title}

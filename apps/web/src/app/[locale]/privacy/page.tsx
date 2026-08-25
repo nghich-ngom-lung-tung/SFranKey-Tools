@@ -147,7 +147,7 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
             : "Clear theme, language, favorites, recent tools and the splash marker from this device. Network inputs and results are not stored here."}
         </p>
         <div className="mt-6">
-          <ClearLocalData label={t.common.clear} />
+          <ClearLocalData label={t.common.clear} locale={locale} />
         </div>
       </div>
     </div>

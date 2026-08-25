@@ -2,11 +2,31 @@
 
 import * as React from "react";
 import type { Locale } from "@sfrankey/shared";
-import { compareDigest, hashText, type DigestFormat, type HashAlgorithm } from "@sfrankey/tool-core/hash";
+import {
+  compareDigest,
+  hashText,
+  type DigestFormat,
+  type HashAlgorithm,
+} from "@sfrankey/tool-core/hash";
 import { getDictionary } from "@sfrankey/i18n";
-import { Button, Card, CopyButton, Input, Label, Select, Textarea } from "@sfrankey/ui";
 import { downloadBlob } from "@/lib/download";
-import { ResultPanel } from "@/components/result-panel";
+import { useToast } from "./toast-provider";
+import {
+  AlertTriangle,
+  Check,
+  CheckCircle2,
+  Clipboard,
+  Copy,
+  Download,
+  FileCode,
+  Hash,
+  RotateCcw,
+  ShieldAlert,
+  ShieldCheck,
+  Sparkles,
+  Trash2,
+  Zap,
+} from "lucide-react";
 
 const MAX_TEXT_BYTES = 5 * 1024 * 1024;
 
@@ -14,35 +34,480 @@ export function HashWorkspace({ locale }: { locale: Locale }) {
   const dictionary = getDictionary(locale);
   const t = dictionary.encodingSuite.hash;
   const shared = dictionary.encodingSuite.shared;
+  const common = dictionary.common;
+  const { toast } = useToast();
+
   const [input, setInput] = React.useState("");
   const [algorithm, setAlgorithm] = React.useState<HashAlgorithm>("SHA-256");
   const [format, setFormat] = React.useState<DigestFormat>("hex");
   const [expected, setExpected] = React.useState("");
   const [result, setResult] = React.useState("");
   const [error, setError] = React.useState("");
+  const [copiedField, setCopiedField] = React.useState<string | null>(null);
 
-  React.useEffect(() => { setResult(""); setError(""); }, [input, algorithm, format]);
+  React.useEffect(() => {
+    setResult("");
+    setError("");
+  }, [input, algorithm, format]);
+
+  const copyToClipboard = async (textToCopy: string, fieldId = "main") => {
+    if (!textToCopy) return;
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(textToCopy);
+      }
+      setCopiedField(fieldId);
+      toast({
+        title: common.copied,
+        variant: "success",
+      });
+      setTimeout(() => setCopiedField(null), 1800);
+    } catch {
+      toast({
+        title: common.error,
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handlePasteInput = async () => {
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        const text = await navigator.clipboard.readText();
+        if (text) {
+          setInput(text);
+          toast({
+            title: locale === "vi" ? "Đã dán từ clipboard" : "Pasted from clipboard",
+            variant: "success",
+          });
+        }
+      }
+    } catch {
+      toast({
+        title: common.error,
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleLoadSample = () => {
+    setInput("SFranKey Security & Developer Tools");
+    setError("");
+  };
 
   const run = async () => {
-    if (new TextEncoder().encode(input).byteLength > MAX_TEXT_BYTES) { setError(t.textLimit); return; }
-    try { setResult(await hashText(input, algorithm, format)); setError(""); }
-    catch { setResult(""); setError(t.invalidFormat); }
+    if (!input) return;
+    if (new TextEncoder().encode(input).byteLength > MAX_TEXT_BYTES) {
+      setError(t.textLimit);
+      return;
+    }
+    try {
+      const digest = await hashText(input, algorithm, format);
+      setResult(digest);
+      setError("");
+    } catch {
+      setResult("");
+      setError(t.invalidFormat);
+    }
   };
-  const comparison = result && expected ? compareDigest(result, expected, algorithm, format) : null;
-  const reset = () => { setInput(""); setExpected(""); setResult(""); setError(""); };
 
-  return <Card variant="workspace" className="border-0 bg-transparent p-0 shadow-none">
-    <div className="grid gap-4">
-      <div><Label htmlFor="hash-input">{t.textLabel}</Label><Textarea id="hash-input" value={input} onChange={(event) => setInput(event.target.value)} /></div>
-      <div className="grid gap-4 sm:grid-cols-2">
-        <div><Label htmlFor="hash-algorithm">{t.algorithm}</Label><Select id="hash-algorithm" value={algorithm} onChange={(event) => setAlgorithm(event.target.value as HashAlgorithm)}><option>SHA-256</option><option>SHA-384</option><option>SHA-512</option></Select></div>
-        <div><Label htmlFor="hash-format">{t.format}</Label><Select id="hash-format" value={format} onChange={(event) => setFormat(event.target.value as DigestFormat)}><option value="hex">Hex</option><option value="base64">Base64</option></Select></div>
+  const comparison =
+    result && expected
+      ? compareDigest(result, expected, algorithm, format)
+      : null;
+
+  const reset = () => {
+    setInput("");
+    setExpected("");
+    setResult("");
+    setError("");
+  };
+
+  const inputByteLength = React.useMemo(() => {
+    return new TextEncoder().encode(input).byteLength;
+  }, [input]);
+
+  const bitLength =
+    algorithm === "SHA-256" ? 256 : algorithm === "SHA-384" ? 384 : 512;
+
+  return (
+    <div className="w-full space-y-6">
+      {/* Symmetrical 2-Column Studio Grid */}
+      <div className="grid gap-6 lg:grid-cols-2 items-stretch">
+        {/* LEFT COLUMN: Input & Configuration Studio */}
+        <div className="rounded-[32px] border border-emerald-500/25 bg-gradient-to-br from-emerald-50/85 via-white/95 to-teal-50/60 p-5 sm:p-7 shadow-[0_16px_40px_rgba(26,105,71,0.08)] backdrop-blur-xl dark:border-emerald-500/25 dark:from-[#08291e]/95 dark:via-[#06241a]/95 dark:to-[#041a13]/95 flex flex-col justify-between gap-5">
+          <div className="space-y-5">
+            {/* Header */}
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-brand-800/75 dark:text-brand-200/75">
+                <FileCode size={16} className="text-brand-600 dark:text-brand-400" />
+                <span>{locale === "vi" ? "Cấu hình & Nhập liệu" : "Configuration & Input"}</span>
+              </div>
+              <button
+                type="button"
+                onClick={reset}
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-brand-700/75 hover:text-brand-950 dark:text-brand-300/75 dark:hover:text-brand-50 transition"
+              >
+                <RotateCcw size={13} />
+                <span>{common.reset}</span>
+              </button>
+            </div>
+
+            {/* Algorithm & Format Selection Pills */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {/* Algorithm Pill Switcher */}
+              <div className="space-y-1.5">
+                <label className="text-[11px] font-bold uppercase tracking-wider text-brand-800/70 dark:text-brand-200/70">
+                  {t.algorithm}
+                </label>
+                <div className="grid grid-cols-3 gap-1 rounded-xl border border-emerald-500/20 bg-emerald-50/50 p-1 dark:border-emerald-500/20 dark:bg-emerald-950/40">
+                  {(["SHA-256", "SHA-384", "SHA-512"] as const).map((algo) => (
+                    <button
+                      key={algo}
+                      type="button"
+                      onClick={() => setAlgorithm(algo)}
+                      className={`rounded-lg py-1.5 text-[11px] font-bold transition-all ${
+                        algorithm === algo
+                          ? "bg-white text-brand-950 shadow-2xs dark:bg-emerald-900/90 dark:text-brand-50 font-black"
+                          : "text-brand-800/70 hover:text-brand-950 dark:text-brand-200/70 dark:hover:text-brand-50"
+                      }`}
+                    >
+                      {algo.replace("SHA-", "")}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Digest Format Pill Switcher */}
+              <div className="space-y-1.5">
+                <label className="text-[11px] font-bold uppercase tracking-wider text-brand-800/70 dark:text-brand-200/70">
+                  {t.format}
+                </label>
+                <div className="grid grid-cols-2 gap-1 rounded-xl border border-emerald-500/20 bg-emerald-50/50 p-1 dark:border-emerald-500/20 dark:bg-emerald-950/40">
+                  <button
+                    type="button"
+                    onClick={() => setFormat("hex")}
+                    className={`rounded-lg py-1.5 text-xs font-bold transition-all ${
+                      format === "hex"
+                        ? "bg-white text-brand-950 shadow-2xs dark:bg-emerald-900/90 dark:text-brand-50"
+                        : "text-brand-800/70 hover:text-brand-950 dark:text-brand-200/70 dark:hover:text-brand-50"
+                    }`}
+                  >
+                    Hex
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setFormat("base64")}
+                    className={`rounded-lg py-1.5 text-xs font-bold transition-all ${
+                      format === "base64"
+                        ? "bg-white text-brand-950 shadow-2xs dark:bg-emerald-900/90 dark:text-brand-50"
+                        : "text-brand-800/70 hover:text-brand-950 dark:text-brand-200/70 dark:hover:text-brand-50"
+                    }`}
+                  >
+                    Base64
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Input Textarea Area */}
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <label
+                  htmlFor="hash-input"
+                  className="text-xs font-bold text-brand-950 dark:text-brand-50"
+                >
+                  {t.textLabel}
+                </label>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={handlePasteInput}
+                    className="inline-flex items-center gap-1 rounded-lg px-2 py-1 text-[11px] font-semibold text-brand-700 hover:bg-emerald-100/60 dark:text-brand-300 dark:hover:bg-emerald-900/60 transition"
+                  >
+                    <Clipboard size={12} />
+                    <span>{locale === "vi" ? "Dán" : "Paste"}</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleLoadSample}
+                    className="inline-flex items-center gap-1 rounded-lg px-2 py-1 text-[11px] font-semibold text-brand-700 hover:bg-emerald-100/60 dark:text-brand-300 dark:hover:bg-emerald-900/60 transition"
+                  >
+                    <Sparkles size={12} />
+                    <span>{locale === "vi" ? "Mẫu" : "Sample"}</span>
+                  </button>
+                  {input ? (
+                    <button
+                      type="button"
+                      onClick={() => setInput("")}
+                      className="inline-flex items-center gap-1 rounded-lg px-2 py-1 text-[11px] font-semibold text-rose-600 hover:bg-rose-50 dark:text-rose-400 dark:hover:bg-rose-950/40 transition"
+                    >
+                      <Trash2 size={12} />
+                      <span>{common.clear}</span>
+                    </button>
+                  ) : null}
+                </div>
+              </div>
+
+              <textarea
+                id="hash-input"
+                value={input}
+                onChange={(event) => setInput(event.target.value)}
+                rows={6}
+                placeholder={
+                  locale === "vi"
+                    ? "Nhập văn bản cần băm (tính toán hàm băm mật mã)..."
+                    : "Enter text to compute cryptographic hash digest..."
+                }
+                className="w-full rounded-2xl border border-emerald-500/25 bg-white/95 p-3.5 font-mono text-xs text-brand-950 shadow-inner outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 dark:border-emerald-500/20 dark:bg-[#07241a]/90 dark:text-brand-50"
+              />
+
+              <div className="flex items-center justify-between text-[11px] font-medium text-brand-700/60 dark:text-brand-300/60">
+                <span>
+                  {input.length.toLocaleString(locale)} {locale === "vi" ? "ký tự" : "characters"}
+                </span>
+                <span>
+                  {inputByteLength.toLocaleString(locale)} bytes
+                </span>
+              </div>
+            </div>
+
+            {/* Optional Expected Digest for Verification */}
+            <div className="space-y-1.5">
+              <label
+                htmlFor="hash-expected"
+                className="text-[11px] font-bold uppercase tracking-wider text-brand-800/70 dark:text-brand-200/70 flex items-center gap-1.5"
+              >
+                <ShieldCheck size={13} className="text-brand-600 dark:text-brand-400" />
+                <span>{t.expected}</span>
+              </label>
+              <input
+                id="hash-expected"
+                value={expected}
+                onChange={(event) => setExpected(event.target.value)}
+                placeholder={
+                  locale === "vi"
+                    ? "Dán mã hash để đối chiếu tính toàn vẹn..."
+                    : "Paste expected hash to verify integrity..."
+                }
+                className="w-full rounded-xl border border-emerald-500/25 bg-white/95 px-3.5 py-2.5 font-mono text-xs text-brand-950 shadow-2xs outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 dark:border-emerald-500/20 dark:bg-[#07241a]/90 dark:text-brand-50"
+              />
+            </div>
+
+            {/* Error Alert Box */}
+            {error ? (
+              <div
+                role="alert"
+                className="rounded-2xl border border-rose-500/30 bg-rose-500/10 p-3.5 text-xs font-medium text-rose-700 dark:text-rose-300"
+              >
+                {error}
+              </div>
+            ) : null}
+
+            {/* Action Buttons */}
+            <div className="flex flex-wrap items-center gap-3 pt-1">
+              <button
+                type="button"
+                onClick={() => void run()}
+                className="flex-1 flex items-center justify-center gap-2 rounded-xl bg-brand-500 py-3 text-xs sm:text-sm font-black text-brand-950 shadow-md shadow-brand-500/20 transition hover:bg-brand-400 active:scale-98"
+              >
+                <Zap size={16} className="stroke-[2.5]" />
+                <span>{t.run}</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={reset}
+                className="rounded-xl border border-brand-200/80 bg-white/90 px-4 py-3 text-xs font-bold text-brand-800 shadow-2xs hover:bg-brand-50 dark:border-brand-800 dark:bg-brand-900/60 dark:text-brand-200 transition"
+              >
+                {shared.reset}
+              </button>
+            </div>
+          </div>
+
+          {/* Privacy Note */}
+          <p className="text-center text-xs font-medium text-brand-700/60 dark:text-brand-300/60 pt-3 border-t border-emerald-500/15">
+            {t.note} {t.privacy}
+          </p>
+        </div>
+
+        {/* RIGHT COLUMN: Output & Integrity Verification Stage */}
+        <div className="rounded-[32px] border border-emerald-500/30 bg-gradient-to-br from-emerald-100/70 via-white/95 to-teal-100/50 p-5 sm:p-7 shadow-[0_16px_40px_rgba(26,105,71,0.12)] backdrop-blur-xl dark:border-emerald-500/25 dark:from-[#093325] dark:via-[#06241a] dark:to-[#031c14] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col justify-between relative overflow-hidden">
+          {/* Ambient Glows */}
+          <div className="pointer-events-none absolute -right-12 -top-12 size-48 rounded-full bg-brand-400/20 blur-3xl dark:bg-brand-500/15" />
+          <div className="pointer-events-none absolute -left-12 -bottom-12 size-48 rounded-full bg-emerald-400/20 blur-3xl dark:bg-emerald-500/15" />
+
+          {/* Stage Top Bar */}
+          <div className="relative z-10 w-full flex items-center justify-between mb-4">
+            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-brand-800/80 dark:text-brand-200/80">
+              <ShieldCheck size={16} className="text-brand-600 dark:text-brand-400" />
+              <span>{t.hash}</span>
+            </div>
+
+            {result ? (
+              <span className="flex items-center gap-1.5 rounded-lg bg-brand-500/20 px-2.5 py-0.5 text-xs font-bold text-brand-900 ring-1 ring-brand-500/30 dark:bg-brand-400/15 dark:text-brand-200">
+                <Hash size={13} className="text-brand-600 dark:text-brand-300" />
+                <span>{algorithm} · {format === "hex" ? "Hex" : "Base64"}</span>
+              </span>
+            ) : null}
+          </div>
+
+          {/* Main Stage Content */}
+          <div className="relative z-10 my-auto flex flex-col items-center justify-center py-4 w-full">
+            {result ? (
+              <div className="w-full space-y-4">
+                {/* Integrity Comparison Result Card (if expected provided) */}
+                {comparison ? (
+                  <div
+                    role="status"
+                    className={`rounded-2xl border p-3.5 text-xs flex items-center gap-3 shadow-2xs ${
+                      comparison.valid && comparison.matches
+                        ? "border-emerald-500/40 bg-emerald-500/15 text-emerald-950 dark:text-emerald-100"
+                        : "border-rose-500/40 bg-rose-500/15 text-rose-950 dark:text-rose-100"
+                    }`}
+                  >
+                    <span
+                      className={`grid size-8 shrink-0 place-items-center rounded-xl ${
+                        comparison.valid && comparison.matches
+                          ? "bg-emerald-500/20 text-emerald-700 dark:text-emerald-300"
+                          : "bg-rose-500/20 text-rose-700 dark:text-rose-300"
+                      }`}
+                    >
+                      {comparison.valid && comparison.matches ? (
+                        <CheckCircle2 size={18} />
+                      ) : (
+                        <AlertTriangle size={18} />
+                      )}
+                    </span>
+                    <div className="space-y-0.5">
+                      <strong className="text-xs font-black block">
+                        {comparison.valid
+                          ? comparison.matches
+                            ? locale === "vi"
+                              ? "Khớp hoàn toàn (Match)"
+                              : t.match
+                            : locale === "vi"
+                              ? "Không khớp (Does not match)"
+                              : t.noMatch
+                          : comparison.errorCode === "INVALID_LENGTH"
+                            ? t.invalidLength
+                            : t.invalidFormat}
+                      </strong>
+                      <p className="text-[11px] opacity-80">
+                        {comparison.valid && comparison.matches
+                          ? locale === "vi"
+                            ? "Chuỗi digest tính toán khớp 100% với giá trị mong đợi."
+                            : "Computed digest matches expected value exactly."
+                          : locale === "vi"
+                            ? "Giá trị digest tính toán khác với chuỗi đối chiếu."
+                            : "Computed digest differs from expected string."}
+                      </p>
+                    </div>
+                  </div>
+                ) : null}
+
+                {/* Hash Digest Output Box */}
+                <div className="rounded-2xl border border-emerald-500/25 bg-white/95 p-4 shadow-sm space-y-2 dark:border-emerald-500/20 dark:bg-[#07241a]/90">
+                  <div className="flex items-center justify-between border-b border-emerald-500/15 pb-2">
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-brand-800/70 dark:text-brand-200/70 flex items-center gap-1">
+                      <Hash size={13} className="text-brand-600 dark:text-brand-400" />
+                      <span>{algorithm} Digest</span>
+                    </span>
+                    <span className="font-mono text-[11px] font-bold text-brand-800/70 dark:text-brand-200/70">
+                      {result.length} {locale === "vi" ? "ký tự" : "chars"}
+                    </span>
+                  </div>
+
+                  <pre className="max-h-48 overflow-auto font-mono text-xs sm:text-sm font-bold text-brand-950 select-all dark:text-brand-50 break-all p-1 leading-relaxed">
+                    {result}
+                  </pre>
+                </div>
+
+                {/* Technical Specifications Grid */}
+                <div className="grid grid-cols-3 gap-2 text-center text-xs">
+                  <div className="rounded-xl border border-emerald-500/20 bg-white/90 p-2 dark:border-emerald-500/20 dark:bg-[#07241a]/80">
+                    <span className="text-[10px] uppercase tracking-wider font-bold text-brand-800/65 dark:text-brand-200/65 block">
+                      {locale === "vi" ? "Thuật toán" : "Algorithm"}
+                    </span>
+                    <strong className="font-mono text-brand-950 dark:text-brand-50 text-[11px]">
+                      {algorithm}
+                    </strong>
+                  </div>
+                  <div className="rounded-xl border border-emerald-500/20 bg-white/90 p-2 dark:border-emerald-500/20 dark:bg-[#07241a]/80">
+                    <span className="text-[10px] uppercase tracking-wider font-bold text-brand-800/65 dark:text-brand-200/65 block">
+                      {locale === "vi" ? "Độ dài bit" : "Bit length"}
+                    </span>
+                    <strong className="font-mono text-brand-950 dark:text-brand-50 text-[11px]">
+                      {bitLength} bits
+                    </strong>
+                  </div>
+                  <div className="rounded-xl border border-emerald-500/20 bg-white/90 p-2 dark:border-emerald-500/20 dark:bg-[#07241a]/80">
+                    <span className="text-[10px] uppercase tracking-wider font-bold text-brand-800/65 dark:text-brand-200/65 block">
+                      {locale === "vi" ? "Định dạng" : "Format"}
+                    </span>
+                    <strong className="font-mono text-brand-950 dark:text-brand-50 text-[11px]">
+                      {format.toUpperCase()}
+                    </strong>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              /* EMPTY STAGE PLACEHOLDER */
+              <div className="grid size-64 sm:size-72 place-items-center rounded-3xl border-2 border-dashed border-emerald-500/30 bg-emerald-50/20 p-6 text-center">
+                <div className="space-y-2.5">
+                  <span className="mx-auto grid size-12 place-items-center rounded-2xl bg-emerald-500/15 text-emerald-700 dark:bg-emerald-400/15 dark:text-emerald-300">
+                    <Hash size={24} />
+                  </span>
+                  <p className="text-xs font-bold text-brand-950 dark:text-brand-50">
+                    {locale === "vi" ? "Đang chờ nhập văn bản" : "Waiting for input"}
+                  </p>
+                  <p className="text-[11px] text-brand-700/65 dark:text-brand-300/65">
+                    {locale === "vi"
+                      ? "Kết quả tính toán hash digest sẽ xuất hiện tại đây."
+                      : "Computed hash digest will appear here."}
+                  </p>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Stage Bottom Actions Toolbar */}
+          <div className="relative z-10 w-full space-y-3 pt-4 border-t border-emerald-500/15">
+            {result ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <button
+                  type="button"
+                  onClick={() => copyToClipboard(result, "hash-copy")}
+                  className="flex items-center justify-center gap-2 rounded-xl bg-brand-500 py-3 text-xs sm:text-sm font-black text-brand-950 shadow-md shadow-brand-500/20 transition hover:bg-brand-400 active:scale-98"
+                >
+                  {copiedField === "hash-copy" ? (
+                    <Check size={16} className="stroke-[2.5]" />
+                  ) : (
+                    <Copy size={16} className="stroke-[2.5]" />
+                  )}
+                  <span>{shared.copy}</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() =>
+                    downloadBlob({
+                      blob: new Blob([result], {
+                        type: "text/plain;charset=utf-8",
+                      }),
+                      fileName: `sfrankey-${algorithm.toLowerCase()}-hash.txt`,
+                    })
+                  }
+                  className="flex items-center justify-center gap-2 rounded-xl border border-brand-200/80 bg-white/90 py-3 text-xs font-bold text-brand-900 shadow-2xs hover:bg-brand-50 dark:border-brand-800 dark:bg-brand-900/60 dark:text-brand-100 transition"
+                >
+                  <Download size={14} />
+                  <span>{t.download}</span>
+                </button>
+              </div>
+            ) : null}
+          </div>
+        </div>
       </div>
-      <div><Label htmlFor="hash-expected">{t.expected}</Label><Input id="hash-expected" value={expected} onChange={(event) => setExpected(event.target.value)} /></div>
-      <div className="flex flex-wrap gap-3"><Button type="button" onClick={() => void run()}>{t.run}</Button><Button type="button" variant="secondary" onClick={reset}>{shared.reset}</Button></div>
-      {error ? <p role="alert" className="text-sm text-rose-600 dark:text-rose-300">{error}</p> : null}
-        {result ? <ResultPanel label={t.hash} status="success" mono actions={<><CopyButton value={result} label={shared.copy} /><Button type="button" size="sm" variant="secondary" onClick={() => downloadBlob({ blob: new Blob([result], { type: "text/plain;charset=utf-8" }), fileName: `sfrankey-${algorithm.toLowerCase()}-hash.txt` })}>{t.download}</Button></>}><p className="break-all text-sm">{result}</p>{comparison ? <p role="status" className={`mt-4 text-sm font-semibold ${comparison.valid && comparison.matches ? "text-emerald-700 dark:text-emerald-300" : "text-rose-600 dark:text-rose-300"}`}>{comparison.valid ? comparison.matches ? t.match : t.noMatch : comparison.errorCode === "INVALID_LENGTH" ? t.invalidLength : t.invalidFormat}</p> : null}</ResultPanel> : null}
     </div>
-    <p className="mt-5 text-xs text-brand-800/65 dark:text-brand-200/65">{t.note} {t.privacy}</p>
-  </Card>;
+  );
 }

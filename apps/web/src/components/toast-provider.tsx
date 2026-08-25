@@ -1,16 +1,13 @@
 "use client";
 
 import * as React from "react";
+import { AlertTriangle, Check, Info } from "lucide-react";
 import {
-  AlertTriangle,
-  CheckCircle2,
   Toast,
-  ToastClose,
   ToastDescription,
   ToastProvider as RadixToastProvider,
   ToastTitle,
   ToastViewport,
-  X,
 } from "@sfrankey/ui";
 
 export type ToastVariant = "default" | "success" | "warning" | "destructive";
@@ -43,16 +40,16 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
       title,
       description,
       variant = "default",
-      duration = 3000,
+      duration = 2200,
     }: Omit<ToastMessage, "id">) => {
       const id =
         typeof crypto !== "undefined" && typeof crypto.randomUUID === "function"
           ? crypto.randomUUID()
           : `${Date.now()}-${Math.random()}`;
-      setToasts((current) => [
-        ...current.slice(-4),
-        { id, title, description, variant, duration },
-      ]);
+      setToasts((current) => {
+        const filtered = current.filter((t) => t.title !== title);
+        return [...filtered.slice(-1), { id, title, description, variant, duration }];
+      });
     },
     [],
   );
@@ -73,39 +70,41 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
             <Toast
               key={item.id}
               duration={item.duration}
+              onClick={() => removeToast(item.id)}
               onOpenChange={(open) => {
                 if (!open) removeToast(item.id);
               }}
-              className="group border border-[var(--border-strong)] bg-[var(--surface-dialog)] shadow-raised"
+              className="cursor-pointer select-none transition-transform duration-150 hover:scale-105 active:scale-95"
             >
-              <div className="flex items-start gap-3">
+              <div className="flex flex-1 min-w-0 items-center gap-3">
                 {isSuccess ? (
-                  <CheckCircle2
-                    size={18}
-                    className="mt-0.5 shrink-0 text-emerald-500"
-                  />
-                ) : isDestructive || isWarning ? (
-                  <AlertTriangle
-                    size={18}
-                    className={`mt-0.5 shrink-0 ${
-                      isDestructive ? "text-rose-500" : "text-amber-500"
-                    }`}
-                  />
-                ) : null}
-                <div className="grid gap-1">
-                  <ToastTitle className="text-sm font-semibold">
+                  <span className="grid size-8 shrink-0 place-items-center rounded-xl bg-emerald-500/15 text-emerald-600 ring-1 ring-emerald-500/25 dark:bg-emerald-400/15 dark:text-emerald-300">
+                    <Check size={16} className="stroke-[2.8]" />
+                  </span>
+                ) : isDestructive ? (
+                  <span className="grid size-8 shrink-0 place-items-center rounded-xl bg-rose-500/15 text-rose-600 ring-1 ring-rose-500/25 dark:bg-rose-400/15 dark:text-rose-300">
+                    <AlertTriangle size={16} className="stroke-[2.5]" />
+                  </span>
+                ) : isWarning ? (
+                  <span className="grid size-8 shrink-0 place-items-center rounded-xl bg-amber-500/15 text-amber-600 ring-1 ring-amber-500/25 dark:bg-amber-400/15 dark:text-amber-300">
+                    <AlertTriangle size={16} className="stroke-[2.5]" />
+                  </span>
+                ) : (
+                  <span className="grid size-8 shrink-0 place-items-center rounded-xl bg-brand-500/15 text-brand-700 ring-1 ring-brand-500/25 dark:bg-brand-400/15 dark:text-brand-300">
+                    <Info size={16} className="stroke-[2.5]" />
+                  </span>
+                )}
+                <div className="min-w-0 flex-1">
+                  <ToastTitle className="text-sm font-black tracking-tight text-brand-950 dark:text-brand-50 truncate">
                     {item.title}
                   </ToastTitle>
                   {item.description ? (
-                    <ToastDescription className="text-xs text-[var(--ink-muted)]">
+                    <ToastDescription className="text-xs font-medium leading-relaxed text-brand-900/75 dark:text-brand-100/75 truncate mt-0.5">
                       {item.description}
                     </ToastDescription>
                   ) : null}
                 </div>
               </div>
-              <ToastClose className="rounded-md p-1 opacity-70 transition hover:opacity-100">
-                <X size={14} />
-              </ToastClose>
             </Toast>
           );
         })}

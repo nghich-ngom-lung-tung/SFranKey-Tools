@@ -456,7 +456,7 @@ function CategoryRowItem({
     <Link
       href={localePath(locale, `categories/${category}`)}
       className={cn(
-        "group relative flex items-center justify-between gap-4 overflow-hidden rounded-2xl border border-brand-200/70 bg-white/80 p-4.5 shadow-xs backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 dark:border-brand-800/40 dark:bg-brand-950/50 sm:p-5",
+        "group relative flex items-center justify-between gap-4 overflow-hidden rounded-2xl border border-brand-200/70 bg-white/80 p-4 shadow-xs backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 dark:border-brand-800/40 dark:bg-brand-950/50 sm:p-5",
         hover.border,
         hover.bg,
         hover.shadow

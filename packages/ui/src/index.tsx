@@ -37,6 +37,7 @@ import {
   HardDrive,
   Hash,
   Heart,
+  Info,
   KeyRound,
   Layers,
   Loader2,
@@ -999,6 +1000,8 @@ DialogContent.displayName = DialogPrimitive.Content.displayName;
 export const DialogTitle = DialogPrimitive.Title;
 export const DialogDescription = DialogPrimitive.Description;
 
+export * from "./confirm-dialog";
+
 export const DropdownMenu = DropdownMenuPrimitive.Root;
 export const DropdownMenuTrigger = DropdownMenuPrimitive.Trigger;
 export const DropdownMenuPortal = DropdownMenuPrimitive.Portal;
@@ -1019,9 +1022,9 @@ export const DrawerClose = DialogClose;
 export function DrawerContent({ className, children, ...props }: React.ComponentPropsWithoutRef<typeof DialogContent>) { return <DialogContent showClose={false} className={cn("left-auto right-0 top-0 h-full max-h-none w-[min(90vw,27rem)] translate-x-0 translate-y-0 rounded-none rounded-l-[var(--radius-xl)] data-[state=closed]:animate-drawer-out data-[state=open]:animate-drawer-in", className)} {...props}>{children}</DialogContent>; }
 
 export const ToastProvider = ToastPrimitive.Provider;
-export const ToastViewport = React.forwardRef<React.ElementRef<typeof ToastPrimitive.Viewport>, React.ComponentPropsWithoutRef<typeof ToastPrimitive.Viewport>>(({ className, ...props }, ref) => <ToastPrimitive.Viewport ref={ref} className={cn("fixed bottom-0 right-0 z-[100] flex w-full max-w-sm flex-col gap-2 p-4 outline-none", className)} {...props} />);
+export const ToastViewport = React.forwardRef<React.ElementRef<typeof ToastPrimitive.Viewport>, React.ComponentPropsWithoutRef<typeof ToastPrimitive.Viewport>>(({ className, ...props }, ref) => <ToastPrimitive.Viewport ref={ref} className={cn("fixed bottom-5 right-5 z-[120] flex w-auto max-w-[calc(100vw-2.5rem)] sm:max-w-sm flex-col gap-2.5 outline-none pointer-events-none", className)} {...props} />);
 ToastViewport.displayName = ToastPrimitive.Viewport.displayName;
-export const Toast = React.forwardRef<React.ElementRef<typeof ToastPrimitive.Root>, React.ComponentPropsWithoutRef<typeof ToastPrimitive.Root>>(({ className, ...props }, ref) => <ToastPrimitive.Root ref={ref} className={cn("group relative flex items-start gap-3 rounded-[var(--radius-md)] border border-[var(--border-strong)] bg-[var(--surface-dialog)] p-4 text-sm text-brand-950 shadow-dialog data-[state=closed]:animate-toast-out data-[state=open]:animate-toast-in dark:text-brand-50", className)} {...props} />);
+export const Toast = React.forwardRef<React.ElementRef<typeof ToastPrimitive.Root>, React.ComponentPropsWithoutRef<typeof ToastPrimitive.Root>>(({ className, ...props }, ref) => <ToastPrimitive.Root ref={ref} className={cn("pointer-events-auto group relative flex w-auto min-w-[200px] items-center justify-between gap-3 overflow-hidden rounded-2xl border border-emerald-500/25 bg-white/95 px-4 py-3 text-sm text-brand-950 shadow-[0_12px_36px_rgba(26,105,71,0.18)] backdrop-blur-2xl data-[state=closed]:animate-toast-out data-[state=open]:animate-toast-in dark:border-emerald-500/20 dark:bg-[#07241a]/95 dark:text-brand-50 dark:shadow-[0_16px_40px_rgba(0,0,0,0.6)]", className)} {...props} />);
 Toast.displayName = ToastPrimitive.Root.displayName;
 export const ToastTitle = ToastPrimitive.Title;
 export const ToastDescription = ToastPrimitive.Description;
@@ -1170,6 +1173,7 @@ export {
   HardDrive,
   Hash,
   Heart,
+  Info,
   KeyRound,
   Layers,
   Loader2,
