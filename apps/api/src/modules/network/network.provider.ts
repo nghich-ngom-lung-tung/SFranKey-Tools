@@ -38,21 +38,26 @@ async function ipinfo(ip: string) {
   } catch (error) { ipinfoFailures += 1; if (ipinfoFailures >= 5) { ipinfoCircuitOpenUntil = Date.now() + 30_000; ipinfoFailures = 0; } throw error; }
 }
 
-export async function lookupIp(ip: string): Promise<IpProfile> {
-  let normalized = normalizeIp(ip);
-  if (normalized.scope !== "public") {
+export async function lookupMyIp(remoteIp?: string): Promise<IpProfile> {
+  let targetIp = remoteIp;
+  if (!targetIp || normalizeIp(targetIp).scope !== "public") {
     try {
       const publicEcho = await fetch("https://api64.ipify.org?format=json", { signal: AbortSignal.timeout(2500) });
       if (publicEcho.ok) {
         const payload = (await publicEcho.json()) as { ip?: string };
         if (payload.ip) {
-          normalized = normalizeIp(payload.ip);
+          targetIp = payload.ip;
         }
       }
     } catch {
       // offline or private network
     }
   }
+  return lookupIp(targetIp ?? "127.0.0.1");
+}
+
+export async function lookupIp(ip: string): Promise<IpProfile> {
+  const normalized = normalizeIp(ip);
 
   if (normalized.scope !== "public" || !env.IPINFO_TOKEN) {
     if (normalized.scope === "public" && !env.IPINFO_TOKEN) {
@@ -115,20 +120,7 @@ export async function lookupIp(ip: string): Promise<IpProfile> {
 }
 
 export async function checkIpPrivacy(ip: string): Promise<PrivacyAssessment> {
-  let normalized = normalizeIp(ip);
-  if (normalized.scope !== "public") {
-    try {
-      const publicEcho = await fetch("https://api64.ipify.org?format=json", { signal: AbortSignal.timeout(2500) });
-      if (publicEcho.ok) {
-        const payload = (await publicEcho.json()) as { ip?: string };
-        if (payload.ip) {
-          normalized = normalizeIp(payload.ip);
-        }
-      }
-    } catch {
-      // ignore
-    }
-  }
+  const normalized = normalizeIp(ip);
   if (normalized.scope !== "public") throw new ApiError(400, "NON_PUBLIC_IP", "Privacy detection only applies to public IP addresses.");
   if (!env.IPINFO_TOKEN) {
     try {
