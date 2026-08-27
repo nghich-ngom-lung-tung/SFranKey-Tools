@@ -1,7 +1,7 @@
 import type { Locale } from "@sfrankey/shared";
 import { getDictionary } from "@sfrankey/i18n";
 import { Badge, Globe, LockKeyhole, Radio, Search, ShieldCheck, Sparkles, Zap } from "@sfrankey/ui";
-import { ClearLocalData } from "@/components/clear-local-data";
+import { ClearLocalData } from "@/components/shared/clear-local-data";
 import { localizedMetadata } from "@/lib/metadata";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }) {

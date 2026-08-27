@@ -10,7 +10,7 @@ import type {
   JsonTransformResult,
 } from "@sfrankey/tool-core/json";
 import { downloadText } from "@/lib/download";
-import { useToast } from "./toast-provider";
+import { useToast } from "@/components/providers/toast-provider";
 import {
   AlertTriangle,
   ArrowDownUp,
@@ -37,7 +37,7 @@ type WorkerResponse =
   | { type: "error"; jobId: string; code: string };
 
 function makeWorker() {
-  return new Worker(new URL("../workers/json.worker.ts", import.meta.url), {
+  return new Worker(new URL("../../workers/json.worker.ts", import.meta.url), {
     type: "module",
   });
 }

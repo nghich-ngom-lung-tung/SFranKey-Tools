@@ -43,13 +43,14 @@ import {
   TooltipProvider,
   X
 } from "@sfrankey/ui";
+import { ArrowUpRight, Mail } from "lucide-react";
 import { localePath } from "@/lib/locale";
 import { readPreferences, writePreferences } from "@/lib/storage";
-import { MotionProvider } from "./motion-provider";
+import { MotionProvider } from "@/components/providers/motion-provider";
 import { ScrollToTop } from "./scroll-to-top";
 import { SplashScreen } from "./splash-screen";
-import { ThemeProvider, useTheme } from "./theme-provider";
-import { ToastProvider } from "./toast-provider";
+import { ThemeProvider, useTheme } from "@/components/providers/theme-provider";
+import { ToastProvider } from "@/components/providers/toast-provider";
 
 export function Shell({ locale, children }: { locale: Locale; children: React.ReactNode }) {
   return (
@@ -309,9 +310,16 @@ function Footer({ locale, switchedPath }: { locale: Locale; switchedPath: string
 
           {/* Column 4: Community & Feedback */}
           <FooterGroup
-            title={locale === "vi" ? "Đóng góp & Hỗ trợ" : "Community & Support"}
+            title={locale === "vi" ? "Hệ sinh thái & Hỗ trợ" : "Ecosystem & Support"}
             icon={<Heart size={14} className="text-rose-500" />}
           >
+            <FooterLink
+              href="https://sfrankieemail.bond/"
+              label={locale === "vi" ? "Sfrankie Email (Temp Mail) ↗" : "Sfrankie Email (Temp Mail) ↗"}
+              icon={<Mail size={14} className="text-teal-600 dark:text-teal-400" />}
+              external
+              highlight
+            />
             <FooterLink
               href={localePath(locale, "request-a-tool")}
               label={locale === "vi" ? "Đề xuất công cụ mới" : "Request a tool"}
@@ -333,6 +341,42 @@ function Footer({ locale, switchedPath }: { locale: Locale; switchedPath: string
               sfrankey.com
             </span>
           </FooterGroup>
+        </div>
+
+        {/* Full-width Balanced Ecosystem Showcase Strip */}
+        <div className="mt-10 rounded-2xl border border-teal-500/25 bg-gradient-to-r from-teal-500/10 via-emerald-500/5 to-transparent p-4 shadow-xs transition-all duration-300 hover:border-teal-500/50 dark:border-teal-500/20 dark:from-teal-950/30 dark:via-brand-950 dark:to-transparent sm:p-5">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-center gap-3.5 min-w-0">
+              <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-teal-500/15 text-teal-700 ring-1 ring-teal-500/30 dark:bg-teal-400/15 dark:text-teal-300">
+                <Mail size={18} />
+              </span>
+              <div className="min-w-0">
+                <div className="flex items-center gap-2">
+                  <strong className="text-sm font-black text-brand-950 dark:text-brand-50">
+                    Sfrankie Email
+                  </strong>
+                  <span className="rounded-full bg-teal-500/15 px-2 py-0.5 text-[10px] font-black text-teal-800 dark:bg-teal-400/15 dark:text-teal-300">
+                    Temp Mail
+                  </span>
+                </div>
+                <p className="mt-0.5 text-xs text-[var(--ink-muted)]">
+                  {locale === "vi"
+                    ? "Dịch vụ email tạm thời dùng 1 lần, nhận mã xác thực OTP & chống thư rác."
+                    : "Disposable temporary inbox service. Receive OTP verification codes without spam."}
+                </p>
+              </div>
+            </div>
+
+            <a
+              href="https://sfrankieemail.bond/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-teal-600 px-4 py-2.5 text-xs font-bold text-white shadow-xs transition-all duration-200 hover:bg-teal-700 hover:shadow-md dark:bg-teal-500 dark:text-teal-950 dark:hover:bg-teal-400"
+            >
+              <span>{locale === "vi" ? "Mở Sfrankie Email" : "Launch Sfrankie Email"}</span>
+              <ArrowUpRight size={14} className="transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            </a>
+          </div>
         </div>
 
         {/* Bottom Copyright */}

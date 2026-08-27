@@ -21,7 +21,7 @@ import {
 import { ConfirmDialog } from "@sfrankey/ui";
 import { trackToolUsed } from "@/lib/analytics";
 import { downloadBlob } from "@/lib/download";
-import { useToast } from "./toast-provider";
+import { useToast } from "@/components/providers/toast-provider";
 import {
   AlertTriangle,
   Binary,

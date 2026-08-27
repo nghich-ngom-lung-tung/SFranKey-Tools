@@ -2,7 +2,7 @@ import { getDictionary } from "@sfrankey/i18n";
 import { toolDefinitions, type Locale } from "@sfrankey/shared";
 import { BrandMark, Globe2, ShieldCheck, Sparkles } from "@sfrankey/ui";
 import type { ReactNode } from "react";
-import { ToolCatalog } from "@/components/tool-catalog";
+import { ToolCatalog } from "@/components/layout/tool-catalog";
 import { localizedMetadata } from "@/lib/metadata";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }) {

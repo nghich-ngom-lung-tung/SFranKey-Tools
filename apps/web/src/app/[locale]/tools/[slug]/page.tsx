@@ -1,8 +1,8 @@
 import { notFound } from "next/navigation";
 import { getTool, toolDefinitions, type Locale } from "@sfrankey/shared";
 import { getDictionary } from "@sfrankey/i18n";
-import { ToolClient } from "@/components/tool-client";
-import { ToolPageFrame } from "@/components/tool-page-frame";
+import { ToolClient } from "@/components/layout/tool-client";
+import { ToolPageFrame } from "@/components/layout/tool-page-frame";
 
 export function generateStaticParams() { return ["vi", "en"].flatMap((locale) => toolDefinitions.map((tool) => ({ locale, slug: tool.slug }))); }
 export async function generateMetadata({ params }: { params: Promise<{ locale: Locale; slug: string }> }) { const { locale, slug } = await params; const tool = getTool(slug); if (!tool) return {}; return { title: tool.title[locale], description: tool.description[locale], alternates: { canonical: `/${locale}/tools/${tool.slug}`, languages: { vi: `/vi/tools/${tool.slug}`, en: `/en/tools/${tool.slug}`, "x-default": `/vi/tools/${tool.slug}` } }, openGraph: { title: tool.title[locale], description: tool.description[locale], url: `/${locale}/tools/${tool.slug}` } }; }

@@ -10,9 +10,9 @@ import {
   type Base64Alphabet,
 } from "@sfrankey/tool-core/encoding";
 import { getDictionary } from "@sfrankey/i18n";
-import { FileDropzone } from "@/components/file-dropzone";
+import { FileDropzone } from "@/components/shared/file-dropzone";
 import { downloadBlob, sanitizeDownloadName } from "@/lib/download";
-import { useToast } from "./toast-provider";
+import { useToast } from "@/components/providers/toast-provider";
 import {
   ArrowLeftRight,
   Binary,
@@ -214,7 +214,7 @@ export function Base64Workspace({ locale }: { locale: Locale }) {
     let worker: Worker;
     try {
       worker = new Worker(
-        new URL("../workers/base64.worker.ts", import.meta.url),
+        new URL("../../workers/base64.worker.ts", import.meta.url),
         { type: "module" },
       );
     } catch {

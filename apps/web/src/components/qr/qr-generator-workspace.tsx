@@ -12,7 +12,7 @@ import { createQrDataUrl, createQrSvg } from "@sfrankey/tool-core/qr-render";
 import type { Locale } from "@sfrankey/shared";
 import { getDictionary } from "@sfrankey/i18n";
 import { downloadBlob } from "@/lib/download";
-import { useToast } from "./toast-provider";
+import { useToast } from "@/components/providers/toast-provider";
 import {
   AlertTriangle,
   Check,

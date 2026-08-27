@@ -38,9 +38,9 @@ import {
   Zap,
   ZapOff,
 } from "@sfrankey/ui";
-import { AboutHeroTerminal } from "@/components/about-hero-terminal";
-import { AboutPrivacyFlow } from "@/components/about-privacy-flow";
-import { AboutReveal } from "@/components/about-reveal";
+import { AboutHeroTerminal } from "@/components/marketing/about-hero-terminal";
+import { AboutPrivacyFlow } from "@/components/marketing/about-privacy-flow";
+import { AboutReveal } from "@/components/marketing/about-reveal";
 import { localePath } from "@/lib/locale";
 
 type AboutCopy = Dictionary["about"];

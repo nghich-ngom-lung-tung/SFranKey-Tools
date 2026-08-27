@@ -1,11 +1,13 @@
 import Link from "next/link";
 import { getDictionary } from "@sfrankey/i18n";
 import { categories, toolDefinitions, type Locale, type ToolCategory } from "@sfrankey/shared";
-import { ArrowRight, Badge, BrandMark, Button, Card, cn, Cpu, getCategoryTone, Globe, Layers, ShieldCheck, Sparkles, ToolCard, ToolIcon } from "@sfrankey/ui";
-import { AnimatedPrivacyPipeline } from "@/components/animated-privacy-pipeline";
-import { HeroWorkspacePreview } from "@/components/hero-workspace-preview";
-import { PersonalTools } from "@/components/personal-tools";
-import { TypingHeadline } from "@/components/typing-headline";
+import { ArrowRight, Badge, BrandMark, Button, Card, cn, Cpu, getCategoryTone, Globe, Layers, LockKeyhole, ShieldCheck, Sparkles, ToolCard, ToolIcon } from "@sfrankey/ui";
+import { AnimatedCounter } from "@/components/marketing/animated-counter";
+import { AnimatedPrivacyPipeline } from "@/components/marketing/animated-privacy-pipeline";
+import { HeroWorkspacePreview } from "@/components/marketing/hero-workspace-preview";
+import { PersonalTools } from "@/components/layout/personal-tools";
+import { ScrollReveal } from "@/components/marketing/about-reveal";
+import { TypingHeadline } from "@/components/marketing/typing-headline";
 import { localePath } from "@/lib/locale";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }) {
@@ -49,13 +51,37 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
       </div>
     </section>
 
-    {/* Clean Seamless Metric Strip */}
-    <section className="border-b border-[var(--border-subtle)] bg-[var(--surface-card)]/50 py-5 backdrop-blur-sm sm:py-6">
+    {/* Clean Seamless Metric Strip with Animated Numbers & Icons */}
+    <section className="border-b border-[var(--border-subtle)] bg-[var(--surface-card)]/60 py-4 backdrop-blur-md sm:py-5">
       <div className="mx-auto grid max-w-7xl grid-cols-2 divide-y divide-[var(--border-subtle)] sm:grid-cols-4 sm:divide-x sm:divide-y-0">
-        <TrustStat value={String(toolDefinitions.length)} label={t.ui.statsTools} highlight="brand" />
-        <TrustStat value={String(localTools)} label={t.ui.onDeviceTools} highlight="emerald" />
-        <TrustStat value={String(networkTools)} label={t.ui.networkTools} highlight="sky" />
-        <TrustStat value="0" label={t.ui.statsAccount} highlight="amber" />
+        <AnimatedCounter
+          value={toolDefinitions.length}
+          label={t.ui.statsTools}
+          iconKey="cpu"
+          highlight="brand"
+          duration={1200}
+        />
+        <AnimatedCounter
+          value={localTools}
+          label={t.ui.onDeviceTools}
+          iconKey="shield-check"
+          highlight="emerald"
+          duration={1400}
+        />
+        <AnimatedCounter
+          value={networkTools}
+          label={t.ui.networkTools}
+          iconKey="globe"
+          highlight="sky"
+          duration={1300}
+        />
+        <AnimatedCounter
+          value={0}
+          label={t.ui.statsAccount}
+          iconKey="lock-keyhole"
+          highlight="amber"
+          duration={1000}
+        />
       </div>
     </section>
 
@@ -81,7 +107,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
           </Link>
         </div>
 
-        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <ScrollReveal stagger={true} className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {featured.map((tool) => (
             <ToolCard
               key={tool.id}
@@ -96,7 +122,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
               openLabel={t.ui.openTool}
             />
           ))}
-        </div>
+        </ScrollReveal>
       </div>
     </section>
 
@@ -122,7 +148,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
           </Link>
         </div>
 
-        <div className="mt-8 grid gap-4 sm:grid-cols-2">
+        <ScrollReveal stagger={true} className="mt-8 grid gap-4 sm:grid-cols-2">
           {categorySamples.map(({ category, tools }, index) => (
             <CategoryRowItem
               key={category}
@@ -132,7 +158,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
               tools={tools}
             />
           ))}
-        </div>
+        </ScrollReveal>
       </div>
     </section>
 

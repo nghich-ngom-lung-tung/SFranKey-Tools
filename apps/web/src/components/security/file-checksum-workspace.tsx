@@ -8,9 +8,9 @@ import {
   type HashAlgorithm,
 } from "@sfrankey/tool-core/hash";
 import { getDictionary } from "@sfrankey/i18n";
-import { FileDropzone } from "@/components/file-dropzone";
+import { FileDropzone } from "@/components/shared/file-dropzone";
 import { downloadBlob } from "@/lib/download";
-import { useToast } from "./toast-provider";
+import { useToast } from "@/components/providers/toast-provider";
 import {
   AlertTriangle,
   Check,
@@ -110,7 +110,7 @@ export function FileChecksumWorkspace({ locale }: { locale: Locale }) {
     let worker: Worker;
     try {
       worker = new Worker(
-        new URL("../workers/file-hash.worker.ts", import.meta.url),
+        new URL("../../workers/file-hash.worker.ts", import.meta.url),
         { type: "module" },
       );
     } catch {

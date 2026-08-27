@@ -9,7 +9,7 @@ import {
 import { getDictionary } from "@sfrankey/i18n";
 import { Badge, getCategoryTone, Sparkles, ToolIcon } from "@sfrankey/ui";
 import { localePath } from "@/lib/locale";
-import { ToolCatalog } from "@/components/tool-catalog";
+import { ToolCatalog } from "@/components/layout/tool-catalog";
 
 export function generateStaticParams() {
   return ["vi", "en"].flatMap((locale) =>

@@ -4,9 +4,9 @@ import userEvent from "@testing-library/user-event";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { getDictionary } from "@sfrankey/i18n";
 import { processJson } from "@sfrankey/tool-core/json";
-import { JwtDecoderWorkspace } from "./jwt-decoder-workspace";
-import { JsonFormatterWorkspace } from "./json-formatter-workspace";
-import { UuidGeneratorWorkspace } from "./uuid-generator-workspace";
+import { JwtDecoderWorkspace } from "@/components/developer/jwt-decoder-workspace";
+import { JsonFormatterWorkspace } from "@/components/developer/json-formatter-workspace";
+import { UuidGeneratorWorkspace } from "@/components/developer/uuid-generator-workspace";
 
 const encodePart = (value: unknown) => btoa(String.fromCharCode(...new TextEncoder().encode(JSON.stringify(value)))).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
 const token = `${encodePart({ alg: "none", typ: "JWT" })}.${encodePart({ sub: "local" })}.`;

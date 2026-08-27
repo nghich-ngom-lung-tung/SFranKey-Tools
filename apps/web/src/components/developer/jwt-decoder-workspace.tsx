@@ -9,7 +9,7 @@ import {
   type JwtDecodeErrorCode,
   type JwtWarningCode,
 } from "@sfrankey/tool-core/jwt";
-import { useToast } from "./toast-provider";
+import { useToast } from "@/components/providers/toast-provider";
 import {
   AlertTriangle,
   Check,

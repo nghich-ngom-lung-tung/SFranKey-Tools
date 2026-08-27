@@ -4,7 +4,7 @@ import type { Locale, ToolDefinition } from "@sfrankey/shared";
 import { toolDefinitions } from "@sfrankey/shared";
 import { Badge, InfoCard, PrivacyBadge, ShieldCheck, ShieldQuestion, Sparkles, ToolCard, ToolIcon } from "@sfrankey/ui";
 import { localePath } from "@/lib/locale";
-import { ToolActions } from "@/components/tool-actions";
+import { ToolActions } from "./tool-actions";
 
 export function ToolPageFrame({ locale, tool, dictionary, children }: { locale: Locale; tool: ToolDefinition; dictionary: Dictionary; children: React.ReactNode }) {
   const sameCategory = toolDefinitions.filter((item) => item.category === tool.category && item.id !== tool.id);

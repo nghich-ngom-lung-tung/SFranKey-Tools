@@ -10,7 +10,7 @@ import {
   type UuidErrorCode,
 } from "@sfrankey/tool-core/uuid";
 import { downloadText } from "@/lib/download";
-import { useToast } from "./toast-provider";
+import { useToast } from "@/components/providers/toast-provider";
 import {
   Check,
   CheckCircle2,

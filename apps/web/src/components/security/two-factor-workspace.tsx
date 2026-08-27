@@ -14,8 +14,8 @@ import {
 } from "@sfrankey/tool-core/totp";
 import { adjustedNow, type ClockSyncState } from "@sfrankey/tool-core/time";
 import { hasClockSkewWarning, syncClock } from "@/lib/time-sync";
-import { QrScannerSurface } from "@/components/qr-scanner-surface";
-import { useToast } from "@/components/toast-provider";
+import { QrScannerSurface } from "@/components/qr/qr-scanner-surface";
+import { useToast } from "@/components/providers/toast-provider";
 import {
   AlertTriangle,
   Building2,

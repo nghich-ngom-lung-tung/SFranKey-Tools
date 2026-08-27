@@ -5,19 +5,19 @@ import dynamic from "next/dynamic";
 import type { Locale } from "@sfrankey/shared";
 import { trackToolUsed } from "@/lib/analytics";
 import { recordRecentTool } from "@/lib/storage";
-import { TwoFactorWorkspace } from "@/components/two-factor-workspace";
-import { PasswordCheckerTool, PasswordGeneratorTool } from "@/components/password-workspace";
+import { TwoFactorWorkspace } from "@/components/security/two-factor-workspace";
+import { PasswordCheckerTool, PasswordGeneratorTool } from "@/components/security/password-workspace";
 
-const QrGeneratorWorkspace = dynamic(() => import("@/components/qr-generator-workspace").then((module) => module.QrGeneratorWorkspace), { ssr: false });
-const QrReaderWorkspace = dynamic(() => import("@/components/qr-reader-workspace").then((module) => module.QrReaderWorkspace), { ssr: false });
-const Base64Workspace = dynamic(() => import("@/components/base64-workspace").then((module) => module.Base64Workspace), { ssr: false });
-const HashWorkspace = dynamic(() => import("@/components/hash-workspace").then((module) => module.HashWorkspace), { ssr: false });
-const FileChecksumWorkspace = dynamic(() => import("@/components/file-checksum-workspace").then((module) => module.FileChecksumWorkspace), { ssr: false });
-const JwtDecoderWorkspace = dynamic(() => import("@/components/jwt-decoder-workspace").then((module) => module.JwtDecoderWorkspace), { ssr: false });
-const JsonFormatterWorkspace = dynamic(() => import("@/components/json-formatter-workspace").then((module) => module.JsonFormatterWorkspace), { ssr: false });
-const UuidGeneratorWorkspace = dynamic(() => import("@/components/uuid-generator-workspace").then((module) => module.UuidGeneratorWorkspace), { ssr: false });
-const TimestampConverterWorkspace = dynamic(() => import("@/components/timestamp-converter-workspace").then((module) => module.TimestampConverterWorkspace), { ssr: false });
-const NetworkWorkspace = dynamic(() => import("@/components/network-workspace").then((module) => module.NetworkWorkspace), { ssr: false });
+const QrGeneratorWorkspace = dynamic(() => import("@/components/qr/qr-generator-workspace").then((module) => module.QrGeneratorWorkspace), { ssr: false });
+const QrReaderWorkspace = dynamic(() => import("@/components/qr/qr-reader-workspace").then((module) => module.QrReaderWorkspace), { ssr: false });
+const Base64Workspace = dynamic(() => import("@/components/security/base64-workspace").then((module) => module.Base64Workspace), { ssr: false });
+const HashWorkspace = dynamic(() => import("@/components/security/hash-workspace").then((module) => module.HashWorkspace), { ssr: false });
+const FileChecksumWorkspace = dynamic(() => import("@/components/security/file-checksum-workspace").then((module) => module.FileChecksumWorkspace), { ssr: false });
+const JwtDecoderWorkspace = dynamic(() => import("@/components/developer/jwt-decoder-workspace").then((module) => module.JwtDecoderWorkspace), { ssr: false });
+const JsonFormatterWorkspace = dynamic(() => import("@/components/developer/json-formatter-workspace").then((module) => module.JsonFormatterWorkspace), { ssr: false });
+const UuidGeneratorWorkspace = dynamic(() => import("@/components/developer/uuid-generator-workspace").then((module) => module.UuidGeneratorWorkspace), { ssr: false });
+const TimestampConverterWorkspace = dynamic(() => import("@/components/developer/timestamp-converter-workspace").then((module) => module.TimestampConverterWorkspace), { ssr: false });
+const NetworkWorkspace = dynamic(() => import("@/components/network/network-workspace").then((module) => module.NetworkWorkspace), { ssr: false });
 
 export function ToolClient({ locale, slug }: { locale: Locale; slug: string }) {
   React.useEffect(() => {

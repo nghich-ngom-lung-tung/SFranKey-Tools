@@ -1,7 +1,7 @@
 import Script from "next/script";
 import { GeistMono, GeistSans } from "geist/font";
 import { locales, type Locale } from "@sfrankey/shared";
-import { Shell } from "@/components/shell";
+import { Shell } from "@/components/layout/shell";
 import { assertLocale } from "@/lib/locale";
 import { siteMetadata } from "../site-metadata";
 import "../globals.css";

@@ -10,8 +10,8 @@ import {
   DialogDescription,
   DialogTitle,
 } from "@sfrankey/ui";
-import { QrScannerSurface, type ScannerErrorCode } from "@/components/qr-scanner-surface";
-import { useToast } from "./toast-provider";
+import { QrScannerSurface, type ScannerErrorCode } from "./qr-scanner-surface";
+import { useToast } from "@/components/providers/toast-provider";
 import {
   AlertTriangle,
   ArrowUpRight,

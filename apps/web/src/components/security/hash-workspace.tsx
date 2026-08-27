@@ -10,7 +10,7 @@ import {
 } from "@sfrankey/tool-core/hash";
 import { getDictionary } from "@sfrankey/i18n";
 import { downloadBlob } from "@/lib/download";
-import { useToast } from "./toast-provider";
+import { useToast } from "@/components/providers/toast-provider";
 import {
   AlertTriangle,
   Check,

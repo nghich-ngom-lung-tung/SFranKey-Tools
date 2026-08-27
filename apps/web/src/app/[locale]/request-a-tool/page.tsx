@@ -1,7 +1,7 @@
 import type { Locale } from "@sfrankey/shared";
 import { getDictionary } from "@sfrankey/i18n";
 import { Sparkles, MessageSquarePlus, ShieldCheck } from "@sfrankey/ui";
-import { FeedbackForm } from "@/components/feedback-form";
+import { FeedbackForm } from "@/components/shared/feedback-form";
 import { localizedMetadata } from "@/lib/metadata";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }) {

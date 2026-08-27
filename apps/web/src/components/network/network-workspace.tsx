@@ -6,7 +6,7 @@ import { getDictionary } from "@sfrankey/i18n";
 import { maskIp, parseIceCandidate } from "@sfrankey/tool-core/network";
 import { cn } from "@sfrankey/ui";
 import { executeTurnstile } from "@/lib/turnstile-action";
-import { useToast } from "@/components/toast-provider";
+import { useToast } from "@/components/providers/toast-provider";
 import {
   Activity,
   AlertTriangle,

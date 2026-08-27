@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { scanQrImage } from "@sfrankey/tool-core/qr-scan";
-import { FileDropzone, type FileErrorCode } from "@/components/file-dropzone";
+import { FileDropzone, type FileErrorCode } from "@/components/shared/file-dropzone";
 import {
   Camera,
   Image as ImageIcon,
