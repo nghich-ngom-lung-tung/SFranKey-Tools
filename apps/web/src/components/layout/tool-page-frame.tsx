@@ -11,7 +11,7 @@ export function ToolPageFrame({ locale, tool, dictionary, children }: { locale: 
   const otherTools = toolDefinitions.filter((item) => item.category !== tool.category && item.id !== tool.id);
   const related = [...sameCategory, ...otherTools].slice(0, 3);
   const specific = dictionary.toolDetails[tool.slug as keyof typeof dictionary.toolDetails];
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://sfrankey.com";
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://sfrankey.bond";
   const structuredData = { "@context": "https://schema.org", "@type": "WebApplication", name: tool.title[locale], description: tool.description[locale], applicationCategory: "DeveloperApplication", operatingSystem: "Any", isAccessibleForFree: true, url: siteUrl + "/" + locale + "/tools/" + tool.slug };
   const privacyLabel = tool.privacyMode === "network-required" ? dictionary.common.networkRequired : dictionary.common.onDevice;
 

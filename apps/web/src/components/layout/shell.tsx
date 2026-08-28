@@ -338,7 +338,7 @@ function Footer({ locale, switchedPath }: { locale: Locale; switchedPath: string
             />
             <span className="inline-flex items-center gap-2 pt-1 font-mono text-[11px] text-[var(--ink-muted)]">
               <Globe2 size={13} className="text-brand-500/70" />
-              sfrankey.com
+              sfrankey.bond
             </span>
           </FooterGroup>
         </div>

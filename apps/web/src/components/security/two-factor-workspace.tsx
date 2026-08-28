@@ -157,7 +157,7 @@ export function TwoFactorWorkspace({
       updateSecret(sampleSecret);
     } else if (activeTab === "uri") {
       updateUri(
-        "otpauth://totp/SFranKey:demo@sfrankey.com?secret=" +
+        "otpauth://totp/SFranKey:demo@sfrankey.bond?secret=" +
           sampleSecret +
           "&issuer=SFranKey&algorithm=SHA1&digits=6&period=30",
       );

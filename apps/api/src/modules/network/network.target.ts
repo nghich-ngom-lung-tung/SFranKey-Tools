@@ -40,7 +40,7 @@ export async function probeHeaders(urlInput: string | URL, timeoutMs = 5000, res
     const request = client.request({
       protocol: url.protocol, host: target.address, family: target.family, port: url.protocol === "https:" ? 443 : 80,
       method: "GET", path: `${url.pathname}${url.search}`, servername: url.hostname, rejectUnauthorized: true, agent: false,
-      maxHeaderSize: 65_536, headers: { host: url.host, "user-agent": "SFranKey-Network-Checker/0.2 (+https://sfrankey.com/security)", accept: "*/*", connection: "close" },
+      maxHeaderSize: 65_536, headers: { host: url.host, "user-agent": "SFranKey-Network-Checker/0.2 (+https://sfrankey.bond/security)", accept: "*/*", connection: "close" },
       signal: AbortSignal.timeout(timeoutMs)
     }, (response) => {
       const result = { url: url.toString(), status: response.statusCode ?? 0, durationMs: Math.round(performance.now() - started), headers: stringHeaders(response.headers), connectedIp: target.address };

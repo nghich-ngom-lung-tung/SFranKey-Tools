@@ -77,7 +77,7 @@ export function QrGeneratorWorkspace({ locale }: { locale: Locale }) {
 
   const [kind, setKind] = React.useState<Kind>("url");
   const [text, setText] = React.useState("SFranKey Tools");
-  const [url, setUrl] = React.useState("https://sfrankey.com");
+  const [url, setUrl] = React.useState("https://sfrankey.bond");
   const [email, setEmail] = React.useState("");
   const [subject, setSubject] = React.useState("");
   const [body, setBody] = React.useState("");
@@ -282,7 +282,7 @@ export function QrGeneratorWorkspace({ locale }: { locale: Locale }) {
     generationRef.current += 1;
     setKind("url");
     setText("SFranKey Tools");
-    setUrl("https://sfrankey.com");
+    setUrl("https://sfrankey.bond");
     setEmail("");
     setSubject("");
     setBody("");
@@ -512,7 +512,7 @@ export function QrGeneratorWorkspace({ locale }: { locale: Locale }) {
                         type="email"
                         value={vcardEmail}
                         onChange={(e) => setVcardEmail(e.target.value)}
-                        placeholder="contact@sfrankey.com"
+                        placeholder="contact@sfrankey.bond"
                         className="w-full rounded-2xl border border-emerald-500/25 bg-white/95 p-3 text-sm font-medium text-brand-950 outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-400/30 dark:border-emerald-500/25 dark:bg-brand-900/60 dark:text-brand-50"
                       />
                     </div>
@@ -525,7 +525,7 @@ export function QrGeneratorWorkspace({ locale }: { locale: Locale }) {
                         type="url"
                         value={vcardUrl}
                         onChange={(e) => setVcardUrl(e.target.value)}
-                        placeholder="https://sfrankey.com"
+                        placeholder="https://sfrankey.bond"
                         className="w-full rounded-2xl border border-emerald-500/25 bg-white/95 p-3 text-sm font-medium text-brand-950 outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-400/30 dark:border-emerald-500/25 dark:bg-brand-900/60 dark:text-brand-50"
                       />
                     </div>
@@ -574,7 +574,7 @@ export function QrGeneratorWorkspace({ locale }: { locale: Locale }) {
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      placeholder="contact@sfrankey.com"
+                      placeholder="contact@sfrankey.bond"
                       className="w-full rounded-2xl border border-emerald-500/25 bg-white/95 p-3 text-sm font-medium text-brand-950 outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-400/30 dark:border-emerald-500/25 dark:bg-brand-900/60 dark:text-brand-50"
                     />
                   </div>

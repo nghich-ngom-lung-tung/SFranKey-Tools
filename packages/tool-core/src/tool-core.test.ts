@@ -264,7 +264,7 @@ describe("tool core", () => {
         phone: "+84 123 456",
       }),
     ).toContain("FN:Nguyễn\\, An\r\n");
-    expect(classifyQrValue("https://sfrankey.com").kind).toBe("url");
+    expect(classifyQrValue("https://sfrankey.bond").kind).toBe("url");
     expect(classifyQrValue("otpauth://totp/SFranKey:a?secret=ABC").kind).toBe(
       "otpauth",
     );

@@ -522,9 +522,9 @@ export function NetworkWorkspace({
     if (targetKind === "ip") {
       setInput("8.8.8.8");
     } else if (targetKind === "host") {
-      setInput("sfrankey.com");
+      setInput("sfrankey.bond");
     } else {
-      setInput("https://sfrankey.com");
+      setInput("https://sfrankey.bond");
     }
   };
 

@@ -38,7 +38,7 @@ test("QR reader decodes an exported image without opening it", async ({
   page,
 }) => {
   await page.goto("/en/tools/qr-generator", { waitUntil: "domcontentloaded" });
-  await page.locator("#qr-text").fill("https://sfrankey.com/private");
+  await page.locator("#qr-text").fill("https://sfrankey.bond/private");
   await page.getByRole("button", { name: "Generate QR" }).click();
   const downloadPromise = page.waitForEvent("download");
   await page.getByRole("button", { name: "Download PNG" }).click();
@@ -56,7 +56,7 @@ test("QR reader decodes an exported image without opening it", async ({
       buffer: png,
     });
   await expect(
-    page.getByText("https://sfrankey.com/private", { exact: true }),
+    page.getByText("https://sfrankey.bond/private", { exact: true }),
   ).toBeVisible({ timeout: 30_000 });
   await expect(page.getByRole("button", { name: "Open link" })).toBeVisible();
 
@@ -69,7 +69,7 @@ test("QR reader decodes an exported image without opening it", async ({
     });
   await expect(page.getByText("Could not read this QR image.")).toBeVisible();
   await expect(
-    page.getByText("https://sfrankey.com/private", { exact: true }),
+    page.getByText("https://sfrankey.bond/private", { exact: true }),
   ).toBeVisible();
 });
 

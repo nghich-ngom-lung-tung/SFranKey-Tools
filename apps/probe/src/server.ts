@@ -9,7 +9,7 @@ import { SessionStore } from "./session-store.js";
 const env = z.object({
   PROBE_ZONE: z.string().default("probe.localhost"), PROBE_PUBLIC_IPV4: z.string().default("127.0.0.1"), PROBE_PUBLIC_IPV6: z.string().default("::1"),
   PROBE_DNS_PORT: z.coerce.number().int().positive().default(5353), PROBE_PIXEL_PORT: z.coerce.number().int().positive().default(4060), PROBE_CONTROL_PORT: z.coerce.number().int().positive().default(4050),
-  PROBE_CONTROL_TOKEN: z.string().min(16).default("local-probe-control-token"), PROBE_NS_HOSTNAME: z.string().default("ns1.sfrankey.com"), PROBE_SESSION_TTL_SECONDS: z.coerce.number().int().positive().default(120), PROBE_MAX_SESSIONS: z.coerce.number().int().positive().default(10_000), PROBE_MAX_RESOLVERS_PER_SESSION: z.coerce.number().int().positive().default(20)
+  PROBE_CONTROL_TOKEN: z.string().min(16).default("local-probe-control-token"), PROBE_NS_HOSTNAME: z.string().default("ns1.sfrankey.bond"), PROBE_SESSION_TTL_SECONDS: z.coerce.number().int().positive().default(120), PROBE_MAX_SESSIONS: z.coerce.number().int().positive().default(10_000), PROBE_MAX_RESOLVERS_PER_SESSION: z.coerce.number().int().positive().default(20)
 }).parse(process.env);
 const zone = env.PROBE_ZONE.toLowerCase().replace(/\.$/, "");
 const store = new SessionStore(env.PROBE_SESSION_TTL_SECONDS * 1000, env.PROBE_MAX_SESSIONS, env.PROBE_MAX_RESOLVERS_PER_SESSION);
