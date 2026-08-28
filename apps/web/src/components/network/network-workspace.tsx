@@ -59,7 +59,7 @@ type LeakSession = {
   ipProfile?: unknown;
 };
 
-const apiBase = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
+const apiBase = process.env.NEXT_PUBLIC_API_URL ?? "/api";
 const endpointBySlug: Partial<Record<NetworkSlug, string>> = {
   "check-my-ip": "my-ip",
   "ip-lookup": "ip-lookup",

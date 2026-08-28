@@ -64,7 +64,7 @@ export function FeedbackForm({
         setStatus("loading");
         try {
           const response = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000"}/v1/feedback`,
+            `${process.env.NEXT_PUBLIC_API_URL ?? "/api"}/v1/feedback`,
             {
               method: "POST",
               headers: { "content-type": "application/json" },

@@ -2,7 +2,7 @@ import { estimateClockOffset, type ClockSyncState } from "@sfrankey/tool-core/ti
 
 type TimeResponse = { unixMs?: unknown };
 
-const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
+const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL ?? "/api";
 
 export async function syncClock(signal?: AbortSignal): Promise<ClockSyncState> {
   const startedAt = Date.now();
