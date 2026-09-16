@@ -197,8 +197,9 @@ function IpResultView({
 }) {
   const isVi = locale === "vi";
   const displayIp = masked ? maskIp(profile.ip) : profile.ip;
-  const isLoopback =
-    profile.scope === "loopback" || profile.scope === "private";
+  const isNonPublic = profile.scope !== "public";
+  const isLoopback = profile.scope === "loopback";
+  const isPrivate = profile.scope === "private";
 
   return (
     <div className="w-full space-y-4">
@@ -220,7 +221,7 @@ function IpResultView({
             <span
               className={cn(
                 "rounded-xl px-3 py-1 text-xs font-black uppercase tracking-wider",
-                isLoopback
+                isNonPublic
                   ? "bg-amber-500/15 text-amber-900 ring-1 ring-amber-500/30 dark:bg-amber-900/60 dark:text-amber-200"
                   : "bg-emerald-500/20 text-emerald-900 ring-1 ring-emerald-500/30 dark:bg-emerald-900/60 dark:text-emerald-200",
               )}
@@ -230,7 +231,7 @@ function IpResultView({
           </div>
         </div>
 
-        {isLoopback ? (
+        {isNonPublic ? (
           <div className="mt-4 flex items-start gap-2.5 rounded-xl border border-amber-400/50 bg-amber-50/80 p-3 text-xs leading-5 text-amber-950 dark:border-amber-700/50 dark:bg-amber-950/40 dark:text-amber-200">
             <AlertTriangle
               size={16}
@@ -238,14 +239,30 @@ function IpResultView({
             />
             <div>
               <strong>
-                {isVi
-                  ? "Môi trường Localhost / Loopback"
-                  : "Localhost / Loopback Environment"}
+                {isLoopback
+                  ? isVi
+                    ? "Môi trường Localhost / Loopback"
+                    : "Localhost / Loopback Environment"
+                  : isPrivate
+                    ? isVi
+                      ? "Mạng nội bộ (Private LAN / RFC 1918)"
+                      : "Private Network Address (LAN / RFC 1918)"
+                    : isVi
+                      ? `Địa chỉ mạng đặc thù (${profile.scope})`
+                      : `Special-use Address (${profile.scope})`}
               </strong>
               :{" "}
-              {isVi
-                ? "Bạn đang chạy kiểm thử trên máy chủ nội bộ. Khi triển khai trên Internet công khai, hệ thống sẽ tự động phân giải chính xác IP, nhà mạng và vị trí thực của người dùng."
-                : "You are testing from a local/private network. In production, public IP and ISP details are resolved automatically."}
+              {isLoopback
+                ? isVi
+                  ? "Bạn đang kiểm tra địa chỉ loopback nội bộ (127.0.0.1 hoặc ::1). Khi triển khai trên Internet công khai, hệ thống sẽ tự động phân giải chính xác IP, nhà mạng và vị trí thực của người dùng."
+                  : "You are testing a local loopback address (127.0.0.1 or ::1). In production, public IP and ISP details are resolved automatically."
+                : isPrivate
+                  ? isVi
+                    ? "Địa chỉ này thuộc dải mạng riêng cục bộ (như 10.x.x.x, 172.16.x.x, 192.168.x.x) dùng trong cơ quan, trường học hoặc gia đình. IP này không định tuyến trên Internet công cộng nên không áp dụng vị trí địa lý hay ISP toàn cầu."
+                    : "This address belongs to a private local range (e.g. 10.x.x.x, 172.16.x.x, 192.168.x.x) used in home or office networks. It is not publicly routable on the internet, so global geolocation and public ISP data do not apply."
+                  : isVi
+                    ? "Địa chỉ này không thuộc phạm vi định tuyến Internet công cộng tiêu chuẩn, do đó thông tin định vị địa lý và ISP quốc tế không áp dụng."
+                    : "This address is not part of standard public internet routing, so global geolocation and ISP details do not apply."}
             </div>
           </div>
         ) : null}
