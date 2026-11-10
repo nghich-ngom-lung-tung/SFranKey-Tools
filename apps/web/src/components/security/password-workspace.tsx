@@ -856,6 +856,7 @@ export function PasswordGeneratorTool({ locale }: { locale: Locale }) {
               {/* Password String Box (Click to copy) */}
               <div
                 role="button"
+                data-password-result={count === 1 ? (revealed ? "visible" : "masked") : undefined}
                 tabIndex={0}
                 onClick={() => void copyToClipboard(primaryResult, 0)}
                 onKeyDown={(e) => {
@@ -955,12 +956,16 @@ export function PasswordGeneratorTool({ locale }: { locale: Locale }) {
                           {index + 1}.
                         </span>
                         <div className="truncate flex-1">
+                          <span
+                            data-password-result={revealed ? "visible" : "masked"}
+                          >
                           <HighlightedPasswordText
                             value={result.value}
                             revealed={revealed}
                             mode={mode}
                             separator={passphraseOptions.separator}
                           />
+                          </span>
                         </div>
                       </div>
 

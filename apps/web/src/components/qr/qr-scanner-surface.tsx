@@ -81,7 +81,10 @@ export function QrScannerSurface({
   const lastFrameRef = React.useRef(0);
   const scanJobRef = React.useRef(0);
   const previewUrlRef = React.useRef<string | null>(null);
-  previewUrlRef.current = previewUrl;
+
+  React.useEffect(() => {
+    previewUrlRef.current = previewUrl;
+  }, [previewUrl]);
 
   const reportError = React.useCallback(
     (code: ScannerErrorCode) => {

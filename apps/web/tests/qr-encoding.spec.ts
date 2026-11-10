@@ -6,28 +6,23 @@ test.beforeEach(async ({ page }) => {
   );
 });
 
-test("QR generator builds a local preview and keeps it stable until generate", async ({
+test("QR generator keeps its local preview current as settings change", async ({
   page,
 }) => {
   await page.goto("/en/tools/qr-generator", { waitUntil: "domcontentloaded" });
   await expect(
     page.getByRole("heading", { name: "QR Code Generator" }),
   ).toBeVisible();
-  await page.locator("#qr-text").fill("SFranKey local QR");
-  await page.getByRole("button", { name: "Generate QR" }).click();
   const preview = page.locator('img[alt="QR preview"]');
   await expect(preview).toBeVisible();
   await expect(page.getByText(/bytes$/).last()).toBeVisible();
+  const initialSource = await preview.getAttribute("src");
+
+  await page.locator("#qr-url-input").fill("https://example.com/updated");
+  await expect(preview).not.toHaveAttribute("src", initialSource!);
   const generatedSource = await preview.getAttribute("src");
 
-  await page.locator("#qr-kind").selectOption("url");
-  await expect(
-    page.getByText("Settings changed. Generate again to update the preview."),
-  ).toBeVisible();
-  await expect(preview).toHaveAttribute("src", generatedSource!);
-
-  await page.locator("#qr-url").fill("ftp://example.com");
-  await page.getByRole("button", { name: "Generate QR" }).click();
+  await page.locator("#qr-url-input").fill("ftp://example.com");
   await expect(
     page.getByText("Enter a valid HTTP or HTTPS URL."),
   ).toBeVisible();
@@ -38,8 +33,7 @@ test("QR reader decodes an exported image without opening it", async ({
   page,
 }) => {
   await page.goto("/en/tools/qr-generator", { waitUntil: "domcontentloaded" });
-  await page.locator("#qr-text").fill("https://sfrankey.bond/private");
-  await page.getByRole("button", { name: "Generate QR" }).click();
+  await page.locator("#qr-url-input").fill("https://sfrankey.bond/private");
   const downloadPromise = page.waitForEvent("download");
   await page.getByRole("button", { name: "Download PNG" }).click();
   const download = await downloadPromise;
@@ -55,22 +49,21 @@ test("QR reader decodes an exported image without opening it", async ({
       mimeType: "image/png",
       buffer: png,
     });
-  await expect(
-    page.getByText("https://sfrankey.bond/private", { exact: true }),
-  ).toBeVisible({ timeout: 30_000 });
+  const decodedPayload = page.locator("textarea[readonly]");
+  await expect(decodedPayload).toHaveValue("https://sfrankey.bond/private", {
+    timeout: 30_000,
+  });
   await expect(page.getByRole("button", { name: "Open link" })).toBeVisible();
 
   await page
-    .locator("#qr-scanner-file")
+    .locator("#qr-scanner-file-replace")
     .setInputFiles({
       name: "mismatch.jpg",
       mimeType: "image/jpeg",
-      buffer: png,
+      buffer: Buffer.from("this is not a QR image"),
     });
   await expect(page.getByText("Could not read this QR image.")).toBeVisible();
-  await expect(
-    page.getByText("https://sfrankey.bond/private", { exact: true }),
-  ).toBeVisible();
+  await expect(decodedPayload).toHaveValue("https://sfrankey.bond/private");
 });
 
 test("Base64 text round trips Unicode locally", async ({ page }) => {
@@ -82,7 +75,7 @@ test("Base64 text round trips Unicode locally", async ({ page }) => {
     waitUntil: "domcontentloaded",
   });
   await page.getByLabel("Input").fill("Xin chào 🌿");
-  await page.getByRole("button", { name: "Encode" }).click();
+  await page.getByRole("button", { name: "Encode", exact: true }).last().click();
   await expect(
     page.getByText("WGluIGNow6BvIPCfjL8=", { exact: true }),
   ).toBeVisible();

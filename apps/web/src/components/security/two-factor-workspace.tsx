@@ -755,6 +755,9 @@ export function TwoFactorWorkspace({
                 <div
                   role="button"
                   tabIndex={0}
+                  aria-label={
+                    locale === "vi" ? `Sao chép mã OTP ${otp}` : `Copy OTP code ${otp}`
+                  }
                   onClick={() => copyToClipboard(otp, "otp-hero")}
                   onKeyDown={(e) => {
                     if (e.key === "Enter" || e.key === " ") {

@@ -30,7 +30,21 @@ test("all Network Suite routes render in both locales without a request on mount
   for (const locale of ["en", "vi"] as const) {
     for (const slug of networkSlugs) {
       await page.goto(`/${locale}/tools/${slug}`, { waitUntil: "domcontentloaded" });
-      await expect(page.locator("[data-workspace-shell]")).toBeVisible();
+      await expect(page.locator("main h1")).toBeVisible();
+      await expect(
+        page.getByRole("button", {
+          name:
+            slug === "ip-leak-test" ||
+            slug === "dns-leak-test" ||
+            slug === "webrtc-leak-test"
+              ? locale === "en"
+                ? "Start leak diagnostics"
+                : "Bắt đầu chẩn đoán leak"
+              : locale === "en"
+                ? "Run check"
+                : "Chạy kiểm tra",
+        }),
+      ).toBeVisible();
       await expect(
         page.getByText(locale === "en" ? "No request has been sent yet." : "Chưa có request nào được gửi.").first(),
       ).toBeVisible();
@@ -61,7 +75,8 @@ test("IP lookup sends a request only after an explicit action and keeps the targ
           ip: target,
           version: 4,
           scope: "public",
-          countryName: "Australia",
+          countryCode: "AU",
+          city: "Sydney",
           approximate: true,
           capabilities: {},
         },
@@ -76,7 +91,7 @@ test("IP lookup sends a request only after an explicit action and keeps the targ
   await page.getByRole("button", { name: "Run check" }).click();
   await expect.poll(() => networkRequests.length).toBe(1);
   expect(postedBody).toContain(`\"ip\":\"${target}\"`);
-  await expect(page.getByText("Australia")).toBeVisible();
+  await expect(page.getByText(/Sydney/)).toBeVisible();
   expect(page.url()).not.toContain(target);
   expect(
     await page.evaluate(

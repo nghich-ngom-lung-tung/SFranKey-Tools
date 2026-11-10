@@ -20,7 +20,7 @@ The web shell uses a mint-first, local-first visual language for the security wo
 
 `ToolCard` consumes the shared tool registry and renders `showcase`, `standard`, `compact` and `related` variants for homepage, catalog, category, search and related-tool contexts. Showcase cards contain static, aria-hidden previews for featured tools; they never receive user input. Favorite actions are siblings of the primary link, preventing nested interactive elements. `ToolCatalog` keeps search text in React memory and persists only favorite/recent tool IDs through the existing versioned preferences.
 
-`ToolPageFrame` provides the breadcrumb, localized identity, privacy status, workspace slot, instructions, privacy explanation, FAQ and related tools. `WorkspaceShell` adds the shared toolbar and local-processing status around every tool without changing tool state or validation. Sensitive values remain inside the tool workspace and are not copied into motion state, URLs, analytics or local preferences.
+`ToolPageFrame` provides the breadcrumb, localized identity, privacy status, workspace slot, instructions, privacy explanation, FAQ and related tools. Workspaces render their own tool-specific controls and result surfaces. Sensitive values remain inside the tool workspace and are not copied into motion state, URLs, analytics or local preferences.
 
 ## Accessibility and reduced motion
 

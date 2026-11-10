@@ -1,11 +1,9 @@
 import { expect, test } from "@playwright/test";
-test("tool page uses the shared workspace shell", async ({ page }) => {
+test("tool page renders the selected workspace", async ({ page }) => {
   await page.goto("/en/tools/json-formatter", {
     waitUntil: "domcontentloaded",
   });
-  await expect(
-    page.locator('[data-workspace-shell="json-formatter"]'),
-  ).toBeVisible();
+  await expect(page.getByLabel("JSON input")).toBeVisible();
 });
 test("home and tool page render", async ({ page }) => {
   await page.goto("/vi", { waitUntil: "domcontentloaded" });
@@ -16,7 +14,7 @@ test("home and tool page render", async ({ page }) => {
     waitUntil: "domcontentloaded",
   });
   await expect(
-    page.getByRole("heading", { name: "JSON Formatter" }),
+    page.getByRole("heading", { name: "Định dạng JSON" }),
   ).toBeVisible();
   await expect(
     page.getByText("Xử lý trên thiết bị này", { exact: true }).first(),
@@ -169,7 +167,9 @@ test("TOTP secret stays local and generates without submit", async ({
     "true",
   );
   await page.getByLabel("Secret 2FA (Base32)").fill(secret);
-  await expect(page.getByText(/^\d{6}$/).last()).toBeVisible();
+  await expect(
+    page.getByRole("button", { name: /Sao chép mã OTP \d{6}/ }),
+  ).toBeVisible();
   const storedPreferences = await page.evaluate(
     () => localStorage.getItem("sfrankey-preferences") ?? "",
   );
@@ -190,7 +190,9 @@ test("URI tab resolves metadata and QR route opens the scan tab", async ({
     );
   await expect(page.getByText("SHA-256").last()).toBeVisible();
   await expect(page.getByText("60 seconds").last()).toBeVisible();
-  await expect(page.getByText(/^\d{8}$/).last()).toBeVisible();
+  await expect(
+    page.getByRole("button", { name: /Copy OTP code \d{8}/ }),
+  ).toBeVisible();
   await page.goto("/en/tools/qr-2fa-scanner");
   await expect(page.getByRole("tab", { name: "Scan QR" })).toHaveAttribute(
     "aria-selected",
@@ -211,9 +213,18 @@ test("password generator creates a local batch and passphrase", async ({
     page.getByRole("tab", { name: "Random password" }),
   ).toHaveAttribute("aria-selected", "true");
   await expect(page.locator("[data-password-result]")).toHaveCount(1);
-  await page.getByLabel("Number of results").fill("3");
-  await page.getByRole("button", { name: "Generate", exact: true }).click();
-  await expect(page.locator("[data-password-result]")).toHaveCount(3);
+  const revealToggle = page.getByRole("button", { name: "Hide results" });
+  await expect(async () => {
+    await revealToggle.click();
+    await expect(page.getByRole("button", { name: "Show results" })).toBeVisible({
+      timeout: 1_000,
+    });
+  }).toPass({ timeout: 10_000 });
+
+  const resultCount = page.getByLabel("Number of results");
+  await resultCount.selectOption("5");
+  await expect(resultCount).toHaveValue("5");
+  await expect(page.locator("[data-password-result]")).toHaveCount(5);
   await page.getByRole("tab", { name: "Passphrase" }).click();
   await page.getByRole("button", { name: "Generate", exact: true }).click();
   const masked = await page

@@ -2,7 +2,13 @@ import ipaddr from "ipaddr.js";
 import type { HeaderAssessment, IpScope, IpVersion } from "@sfrankey/shared";
 
 export class NetworkInputError extends Error {
-  constructor(public readonly code: string) { super(code); this.name = "NetworkInputError"; }
+  readonly code: string;
+
+  constructor(code: string) {
+    super(code);
+    this.code = code;
+    this.name = "NetworkInputError";
+  }
 }
 
 const ipv4Ranges: Array<[string, number, IpScope]> = [

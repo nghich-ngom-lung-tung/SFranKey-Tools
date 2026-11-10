@@ -20,6 +20,8 @@ ENV NODE_ENV=production
 RUN addgroup -S sfrankey && adduser -S -G sfrankey sfrankey
 COPY --from=base /app/apps/api/dist apps/api/dist
 COPY --from=base /app/apps/api/package.json apps/api/package.json
+COPY --from=base /app/packages/shared packages/shared
+COPY --from=base /app/packages/tool-core packages/tool-core
 COPY --from=base /app/node_modules node_modules
 USER sfrankey
 EXPOSE 4000

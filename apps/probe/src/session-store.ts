@@ -2,6 +2,7 @@ import { randomBytes, timingSafeEqual } from "node:crypto";
 
 export type ProbeSession = { id: string; readToken: string; labels: string[]; resolverIps: Set<string>; expiresAt: number };
 const token = () => randomBytes(24).toString("base64url");
+const dnsLabel = () => randomBytes(24).toString("hex");
 
 export class SessionStore {
   private sessions = new Map<string, ProbeSession>();
@@ -9,7 +10,7 @@ export class SessionStore {
   constructor(private readonly ttlMs: number, private readonly maxSessions: number, private readonly maxResolvers: number) {}
   create() {
     this.cleanup(); if (this.sessions.size >= this.maxSessions) throw new Error("CAPACITY");
-    const session: ProbeSession = { id: token(), readToken: token(), labels: [token(), token(), token()], resolverIps: new Set(), expiresAt: Date.now() + this.ttlMs };
+    const session: ProbeSession = { id: token(), readToken: token(), labels: [dnsLabel(), dnsLabel(), dnsLabel()], resolverIps: new Set(), expiresAt: Date.now() + this.ttlMs };
     this.sessions.set(session.id, session); for (const label of session.labels) this.labels.set(label, session.id); return session;
   }
   get(id: string, readToken?: string) {

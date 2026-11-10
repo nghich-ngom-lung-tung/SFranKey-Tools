@@ -10,8 +10,8 @@
 </p>
 
 <p align="center">
-  <a href="https://nextjs.org"><img src="https://img.shields.io/badge/Next.js-15.3-black?style=for-the-badge&logo=next.js" alt="Next.js" /></a>
-  <a href="https://react.dev"><img src="https://img.shields.io/badge/React-19.0-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React 19" /></a>
+  <a href="https://nextjs.org"><img src="https://img.shields.io/badge/Next.js-16.3-black?style=for-the-badge&logo=next.js" alt="Next.js" /></a>
+  <a href="https://react.dev"><img src="https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React 19" /></a>
   <a href="https://turbo.build"><img src="https://img.shields.io/badge/Turborepo-2.10-EF4444?style=for-the-badge&logo=turborepo" alt="Turborepo" /></a>
   <a href="https://www.typescriptlang.org"><img src="https://img.shields.io/badge/TypeScript-5.8-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" /></a>
   <a href="https://tailwindcss.com"><img src="https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?style=for-the-badge&logo=tailwind-css" alt="Tailwind CSS" /></a>
@@ -69,7 +69,7 @@
 ```
 sfrankey/
 ├── apps/
-│   ├── web/           # Next.js 15 App Router Frontend (Bilingual UI, Tailwind CSS, Motion)
+│   ├── web/           # Next.js 16 App Router Frontend (Bilingual UI, Tailwind CSS, Motion)
 │   ├── api/           # Express & Node.js Backend (SSRF Guard, Rate Limiting, Envelope)
 │   └── probe/         # Self-hosted DNS & Pixel Leak Probe (UDP/TCP 53)
 ├── packages/
@@ -165,7 +165,7 @@ npm run build
 ## 3. Kiến Trúc Monorepo
 
 Hệ thống được tổ chức theo kiến trúc monorepo hiện đại bằng Turborepo:
-* **`apps/web`**: Ứng dụng Next.js 15 App Router hỗ trợ đa ngôn ngữ (VI & EN), dark/light mode và hiệu ứng mượt mà.
+* **`apps/web`**: Ứng dụng Next.js 16 App Router hỗ trợ đa ngôn ngữ (VI & EN), dark/light mode và hiệu ứng mượt mà.
 * **`apps/api`**: Backend Node.js / Express chuyên trách kiểm tra mạng an toàn và chống tấn công SSRF.
 * **`apps/probe`**: Máy chủ DNS & Web Beacon đo kiểm rò rỉ DNS tự host.
 * **`packages/tool-core`**: Thư viện thuật toán lõi chạy trong Web Worker và WebAssembly.
